@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema(
   {
     fullName: {
@@ -12,7 +13,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     mobileNumber: {
       type: Number,
@@ -39,7 +40,7 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      Area: {
+      area: {
         type: String,
         required: true,
       },
@@ -52,7 +53,7 @@ const userSchema = new mongoose.Schema(
         required: true,
       },
     },
-    Histry: [
+    history: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
@@ -64,7 +65,8 @@ const userSchema = new mongoose.Schema(
         ref: "Product",
       },
     ],
-    UserType: {
+    userType: {
+      type: String,
       enum: ["user", "admin", "superAdmin"],
       default: "user",
     },
@@ -80,5 +82,5 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("UserSchema", userSchema);
+const User = mongoose.model("User", userSchema);
 export default User;

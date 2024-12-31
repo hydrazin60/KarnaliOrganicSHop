@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const mongoSchema = new mongoose.Schema(
   {
     productName: {
@@ -41,10 +42,10 @@ const mongoSchema = new mongoose.Schema(
     },
     productCategory: {
       type: String,
-      enum: ["mobile", "laptop", "tv", "camera", " watch", " headphone"],
+      enum: ["mobile", "laptop", "tv", "camera", "watch", "headphone"],
       required: true,
     },
-    productcategoryByAge: {
+    productCategoryByAge: {
       type: String,
       enum: ["kid", "woman", "man"],
       required: true,
@@ -57,16 +58,16 @@ const mongoSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
-    productReating: [
+    productRating: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "ProductReview",
       },
     ],
-    productCancleReasone: [
+    productCancelReason: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "OrderCancleReasone",
+        ref: "OrderCancelReason",
       },
     ],
     finalPrice: {
@@ -79,5 +80,5 @@ const mongoSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model("ProductModel", mongoSchema);
+const Product = mongoose.model("Product", mongoSchema);
 export default Product;

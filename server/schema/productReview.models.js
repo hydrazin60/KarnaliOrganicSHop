@@ -12,17 +12,14 @@ const productReviewSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    rating: {
+    stars: {
       type: Number,
+      enum: [1, 2, 3, 4, 5],
       required: true,
     },
     comment: {
       type: String,
       required: true,
-    },
-    Star: {
-      type: Number,
-      enum: [1, 2, 3, 4, 5],
     },
   },
   {
@@ -30,5 +27,5 @@ const productReviewSchema = new mongoose.Schema(
   }
 );
 
-const ProductReview = mongoose.model("ProductReviewModel", productReviewSchema);
+const ProductReview = mongoose.model("ProductReview", productReviewSchema);
 export default ProductReview;

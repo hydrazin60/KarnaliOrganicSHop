@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const orderCancleReasoneSchema = new mongoose.Schema(
+const orderCancelReasonSchema = new mongoose.Schema(
   {
     productId: [
       {
@@ -22,14 +22,14 @@ const orderCancleReasoneSchema = new mongoose.Schema(
     },
     eSewaNumber: {
       type: Number,
-      require: true,
+      required: true,
     },
-    cancleProcess: {
+    cancelProcess: {
       type: String,
-      enam: [
-        "Your Requist has been Submitted",
-        "Pending  Requist Process",
-        "Requist Failed",
+      enum: [
+        "Your Request has been Submitted",
+        "Pending Request Process",
+        "Request Failed",
         "Paid",
       ],
     },
@@ -39,8 +39,8 @@ const orderCancleReasoneSchema = new mongoose.Schema(
   }
 );
 
-const OrderCancleReasone = mongoose.model(
-  "OrderCancleReasoneModel",
-  orderCancleReasoneSchema
+const OrderCancelReason = mongoose.model(
+  "OrderCancelReason",
+  orderCancelReasonSchema
 );
-export default OrderCancleReasone;
+export default OrderCancelReason;
