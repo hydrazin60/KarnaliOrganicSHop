@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { Input } from "./ui/input";
 import { FaSearch } from "react-icons/fa";
@@ -6,11 +6,13 @@ import { FaCaretDown } from "react-icons/fa";
 import { FaFlagCheckered } from "react-icons/fa";
 import { SlBasket } from "react-icons/sl";
 import NavigationBar from "./NavigationBar";
+import { RxAvatar } from "react-icons/rx";
 
 export default function Header() {
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <header>
-      <body className="shadow-md shadow-blue-300 p-1  bg-black text-white ">
+      <body className="shadow-md shadow-blue-300 p-1  bg-black text-white overflow-hidden ">
         <div className="flex items-center gap-1 ">
           <div className="flex w-28 p-3  items-center  justify-center border-2 rounded-[3px] border-black hover:border-gray-200">
             <img
@@ -61,17 +63,29 @@ export default function Header() {
               <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
             </span>
           </div>
-          <div className=" border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
-            <div>
-              <p className="font-semibold text-xs">Hello, sign in</p>
+          {isLogin ? (
+            <div className="flex flex-col items-center gap-1 border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
+              <div className="flex items-center gap-3">
+                <RxAvatar className="text-3xl cursor-pointer" />
+                <p className="font-semibold text-xs">
+                  Hello, <br /> Jiban ..
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <p className="font-semibold text-sm">Account & Lists</p>
-              <span>
-                <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
-              </span>
+          ) : (
+            <div className=" border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
+              <div>
+                <p className="font-semibold text-xs">Hello, sign in</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <p className="font-semibold text-sm">Account & Lists</p>
+                <span>
+                  <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
+                </span>
+              </div>
             </div>
-          </div>
+          )}
+
           <div className=" border-2 rounded-[3px] border-black flex flex-col hover:border-gray-200 p-2 ">
             <p className="font-semibold text-xs">Returns</p>
             <p className="font-semibold text-sm">& Orders</p>
