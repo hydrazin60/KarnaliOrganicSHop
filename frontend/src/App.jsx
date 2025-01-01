@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./page/Login";
 import { Divide } from "lucide-react";
+import Register from "./page/Register";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
