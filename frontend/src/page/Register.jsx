@@ -1,10 +1,88 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import { Link } from "lucide-react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { IoEyeOffOutline } from "react-icons/io5";
+import { IoEyeOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
+import axios from "axios";
 export default function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("invalid credentials");
+  const [loading, setLoading] = useState(false);
+  const [ieError, setIsError] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    reEnterPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+
+      if (!formData.fullName || !formData.email || !formData.password) {
+        setIsError(true);
+        setErrorMessage("All fields are required");
+        setLoading(false);
+        return;
+      }
+
+      if (formData.password !== formData.reEnterPassword) {
+        setIsError(true);
+        setErrorMessage("Passwords don't match");
+        setFormData({
+          ...formData,
+          reEnterPassword: "",
+        });
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.post(
+        "http://localhost:4000/api/v1/amazoneClone/user/auth/register",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+      if (res.data.success) {
+        toast.success(`${res.data.message}`);
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          reEnterPassword: "",
+        });
+      } else {
+        toast.error(res.data.message || "Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.response?.data?.message || "An error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const navigate = useNavigate();
   return (
-    <body className=" p-3 w-screen h-screen  flex  flex-col items-center gap-8">
+    <main className=" p-3 w-screen h-screen  flex  flex-col items-center gap-8">
       <section className="w-[350px] h-fit flex flex-col gap-4    ">
         <div>
           <img
@@ -19,20 +97,32 @@ export default function Register() {
               Create account
             </h2>
           </>
-          <div className="">
-            <label for="name" className="text-sm font-bold text-zinc-700">
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name" className="text-sm font-bold text-zinc-700">
               Your name
             </label>
             <Input
               type="text"
+              name="fullName"
               placeholder="First and Last name"
+              required
               className="w-full h-8 mb-3 border border-slate-400 "
+              value={formData.fullName}
+              onChange={handleChange}
             />
-            <label htmlFor="email" className="text-sm font-bold text-zinc-700">
+            <label
+              htmlFor="email"
+              name="email"
+              className="text-sm font-bold text-zinc-700"
+            >
               Mobile number or email
             </label>
             <Input
               type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
               className="w-full h-8 mb-3 border border-slate-400  "
             />
             <label
@@ -41,11 +131,29 @@ export default function Register() {
             >
               Password
             </label>
-            <Input
-              type="password"
-              placeholder="At least 6 characters"
-              className="w-full h-8 mb-3 border border-slate-400 "
-            />
+            <div className="relative mb-3 ">
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="At least 6 characters"
+                className="w-full h-8  border border-slate-400 "
+              />
+              {showPassword ? (
+                <IoEyeOutline
+                  className="absolute right-3 top-2 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <IoEyeOffOutline
+                  className="absolute right-3 top-2 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
+            </div>
+
             <div className="flex gap-2 mb-3">
               <div className="w-4 h-4 text-[13px] font-semibold flex items-center justify-center bg-[#007185] text-white p-1  rounded-full">
                 i
@@ -56,21 +164,34 @@ export default function Register() {
                 </p>
               </div>
             </div>
-
             <label
               htmlFor="password"
               className="text-sm font-bold text-zinc-700"
             >
               Re-enter password
             </label>
-            <Input
-              type="password"
-              className="w-full h-8 border border-slate-400 "
-            />
+            <div className="relative mb-3 ">
+              <Input
+                type="password"
+                name="reEnterPassword"
+                required
+                value={formData.reEnterPassword}
+                onChange={handleChange}
+                className={`w-full h-8 border ${
+                  ieError ? "border-red-600" : "border-slate-400"
+                }`}
+              />
+              {ieError && (
+                <p className="text-xs text-red-600 absolute left-3 top-2">
+                  {errorMessage}
+                </p>
+              )}
+            </div>
+
             <Button className="w-full my-3 bg-yellow-400 hover:bg-yellow-500 h-8 text-black rounded-full">
               Continue
             </Button>
-          </div>
+          </form>
           <div>
             <p className="text-xs text-zinc-700">
               By continuing, you agree to Amazon's You agree to Amazon's
@@ -96,30 +217,38 @@ export default function Register() {
               Create a free business account
             </p>
           </div>
-          <div>
+          <div className="flex gap-2">
             <p className="text-[14px]  text-zinc-900">
               Already have an account?
-              <a
-                href="#"
-                className="text-[#007185]  hover:text-red-600 hover:underline "
-              >
-                {" "}
-                Sign in
-              </a>
             </p>
+            <button
+              onClick={() => navigate("/login")}
+              className="text-[#007185] text-sm hover:text-red-600"
+            >
+              sign in,
+            </button>
           </div>
         </div>
       </section>
       <section className=" border-t-2 border-slate-300 w-full h-full items-center flex justify-center">
         <div className="flex items-center gap-2 flex-col ">
           <div className="flex space-x-5">
-            <a href="#" className=" text-[13px] text-[#007185]">
+            <a
+              href="#"
+              className=" text-[13px]   text-[#007185] hover:underline hover:text-red-600"
+            >
               Conditions of Use
             </a>
-            <a href="#" className=" text-[13px] text-[#007185]">
+            <a
+              href="#"
+              className=" text-[13px]   text-[#007185] hover:underline hover:text-red-600"
+            >
               Privacy Notice
             </a>
-            <a href="#" className="text-[13px] text-[#007185]">
+            <a
+              href="#"
+              className="text-[13px] text-[#007185] hover:underline hover:text-red-600"
+            >
               Help
             </a>
           </div>
@@ -130,6 +259,6 @@ export default function Register() {
           </div>
         </div>
       </section>
-    </body>
+    </main>
   );
 }

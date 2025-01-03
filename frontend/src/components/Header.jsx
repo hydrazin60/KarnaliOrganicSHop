@@ -7,9 +7,10 @@ import { FaFlagCheckered } from "react-icons/fa";
 import { SlBasket } from "react-icons/sl";
 import NavigationBar from "./NavigationBar";
 import { RxAvatar } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   return (
     <header>
       <body className="shadow-md shadow-blue-300 p-1  bg-black text-white overflow-hidden ">
@@ -75,7 +76,10 @@ export default function Header() {
           ) : (
             <div className=" border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
               <div>
-                <p className="font-semibold text-xs">Hello, sign in</p>
+                {/* <p className="font-semibold text-xs">Hello, sign in</p> */}
+                <Link to="/login" className="font-semibold text-sm">
+                  Sign in
+                </Link>
               </div>
               <div className="flex items-center gap-1">
                 <p className="font-semibold text-sm">Account & Lists</p>

@@ -16,41 +16,32 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     mobileNumber: {
-      type: Number,
-      unique: true,
+      type: String,
     },
     address: {
       country: {
         type: String,
-        required: true,
       },
       province: {
         type: String,
-        required: true,
       },
       district: {
         type: String,
-        required: true,
       },
       city: {
         type: String,
-        required: true,
       },
       municipality: {
         type: String,
-        required: true,
       },
       area: {
         type: String,
-        required: true,
       },
       tole: {
         type: String,
-        required: true,
       },
       homeNumber: {
         type: String,
-        required: true,
       },
     },
     history: [
