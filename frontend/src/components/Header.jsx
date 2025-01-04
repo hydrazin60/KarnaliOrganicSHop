@@ -89,7 +89,6 @@ export default function Header() {
               </div>
             </div>
           )}
-
           <div className=" border-2 rounded-[3px] border-black flex flex-col hover:border-gray-200 p-2 ">
             <p className="font-semibold text-xs">Returns</p>
             <p className="font-semibold text-sm">& Orders</p>

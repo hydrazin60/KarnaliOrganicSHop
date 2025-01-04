@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    profileImage: {
+      type: String,
+    },
     email: {
       type: String,
       required: true,
@@ -18,32 +21,35 @@ const userSchema = new mongoose.Schema(
     mobileNumber: {
       type: String,
     },
-    address: {
-      country: {
-        type: String,
+    address: [
+      {
+        country: {
+          type: String,
+          default: "Nepal",
+        },
+        province: {
+          type: String,
+        },
+        district: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        municipality: {
+          type: String,
+        },
+        area: {
+          type: String,
+        },
+        tole: {
+          type: String,
+        },
+        homeNumber: {
+          type: String,
+        },
       },
-      province: {
-        type: String,
-      },
-      district: {
-        type: String,
-      },
-      city: {
-        type: String,
-      },
-      municipality: {
-        type: String,
-      },
-      area: {
-        type: String,
-      },
-      tole: {
-        type: String,
-      },
-      homeNumber: {
-        type: String,
-      },
-    },
+    ],
     history: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -67,6 +73,11 @@ const userSchema = new mongoose.Schema(
         ref: "Product",
       },
     ],
+    userRole: {
+      type: String,
+      enum: ["user", "admin", "superAdmin"],
+      default: "user",
+    },
   },
   {
     timestamps: true,

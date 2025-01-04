@@ -9,6 +9,7 @@ import { toast } from "sonner";
 
 import axios from "axios";
 export default function Register() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("invalid credentials");
   const [loading, setLoading] = useState(false);
@@ -29,19 +30,19 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
-
+      setIsError(false);
       if (!formData.fullName || !formData.email || !formData.password) {
         setIsError(true);
-        setErrorMessage("All fields are required");
+        setErrorMessage("All fields are required.");
         setLoading(false);
         return;
       }
-
       if (formData.password !== formData.reEnterPassword) {
         setIsError(true);
-        setErrorMessage("Passwords don't match");
+        setErrorMessage("Passwords do not match.");
         setFormData({
           ...formData,
           reEnterPassword: "",
@@ -49,7 +50,6 @@ export default function Register() {
         setLoading(false);
         return;
       }
-
       const res = await axios.post(
         "http://localhost:4000/api/v1/amazoneClone/user/auth/register",
         formData,
@@ -60,27 +60,41 @@ export default function Register() {
           },
         }
       );
-      console.log(res.data);
+
+      console.log("Response Data:", res.data);
+
       if (res.data.success) {
-        toast.success(`${res.data.message}`);
+        navigate("/login")
+        toast.success(res.data.message || "Registration successful!");
         setFormData({
           fullName: "",
           email: "",
           password: "",
           reEnterPassword: "",
         });
+        navagation("/login", {
+          state: { email: formData.email, password: formData.password },
+        });
       } else {
         toast.error(res.data.message || "Something went wrong!");
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error(error.response?.data?.message || "An error occurred.");
+      if (error.response) {
+        setIsError(true);
+        setErrorMessage(
+          error.response.data.message || "Server error occurred."
+        );
+        toast.error(error.response.data.message || "Server error occurred.");
+      } else if (error.request) {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  const navigate = useNavigate();
   return (
     <main className=" p-3 w-screen h-screen  flex  flex-col items-center gap-8">
       <section className="w-[350px] h-fit flex flex-col gap-4    ">
@@ -262,3 +276,56 @@ export default function Register() {
     </main>
   );
 }
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   try {
+//     setLoading(true);
+
+//     if (!formData.fullName || !formData.email || !formData.password) {
+//       setIsError(true);
+//       setErrorMessage("All fields are required");
+//       setLoading(false);
+//       return;
+//     }
+
+//     if (formData.password !== formData.reEnterPassword) {
+//       setIsError(true);
+//       setErrorMessage("Passwords don't match");
+//       setFormData({
+//         ...formData,
+//         reEnterPassword: "",
+//       });
+//       setLoading(false);
+//       return;
+//     }
+
+//     const res = await axios.post(
+//       "http://localhost:4000/api/v1/amazoneClone/user/auth/register",
+//       formData,
+//       {
+//         withCredentials: true,
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     console.log(res.data);
+//     if (res.data.success) {
+//       toast.success(`${res.data.message}`);
+//       setFormData({
+//         fullName: "",
+//         email: "",
+//         password: "",
+//         reEnterPassword: "",
+//       });
+//     } else {
+//       toast.error(res.data.message || "Something went wrong!");
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//     toast.error(error.response?.data?.message || "An error occurred.");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
