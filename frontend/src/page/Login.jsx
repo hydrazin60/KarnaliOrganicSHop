@@ -294,7 +294,7 @@ export default function Login() {
   const navigate = useNavigate();
   return (
     <main className="w-screen h-screen p-3 gap-7 flex  flex-col items-center  ">
-      <section className="w-[350px] flex flex-col gap-5  ">
+      <section className="w-[350px] flex flex-col gap-5 ">
         <div>
           <img
             src="https://assets.aboutamazon.com/2e/d7/ac71f1f344c39f8949f48fc89e71/amazon-logo-squid-ink-smile-orange.png"
@@ -303,7 +303,7 @@ export default function Login() {
           />
         </div>
         <div className="border border-slate-300 rounded-md p-6 ">
-          <div className="flex flex-col gap-3 ">
+          <div className="flex flex-col gap-3">
             <div>
               <h2 className="text-2xl font-semibold text-zinc-800 ">Sign in</h2>
             </div>
@@ -320,7 +320,7 @@ export default function Login() {
                   name="email"
                   required
                   value={formData.email}
-                  placeholder="Email or mobile phone number"
+                  placeholder="Email or mobile phone number "
                   className="border border-slate-400"
                   onChange={handleChange}
                 />
