@@ -244,6 +244,7 @@ export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    image: "",
   });
   const handleChange = async (e) => {
     setFormData({
