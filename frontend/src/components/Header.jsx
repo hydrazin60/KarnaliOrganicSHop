@@ -7,22 +7,24 @@ import { FaFlagCheckered } from "react-icons/fa";
 import { SlBasket } from "react-icons/sl";
 import NavigationBar from "./NavigationBar";
 import { RxAvatar } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
   return (
-    <header>
-      <body className="shadow-md shadow-blue-300 p-1  bg-black text-white overflow-hidden ">
+    <>
+      <main className="shadow-md shadow-blue-300 p-1  bg-black text-white overflow-hidden ">
         <div className="flex items-center gap-1 ">
-          <div className="flex w-28 p-3  items-center  justify-center border-2 rounded-[3px] border-black hover:border-gray-200">
+          <div className="flex w-28 p-3  items-center cursor-pointer  justify-center border-2 rounded-[3px] border-black hover:border-gray-200">
             <img
               src="https://www.pngall.com/wp-content/uploads/15/Amazon-Logo-White-Transparent.png"
               alt="logo"
               className=" inline-block "
+              onClick={() => navigate("/")}
             />
           </div>
-          <div className="flex items-center flex-col border-2 rounded-[3px] border-black hover:border-gray-200 py-2 px-1">
+          <div className="flex items-center cursor-pointer flex-col border-2 rounded-[3px] border-black hover:border-gray-200 py-2 px-1">
             <div>
               <p className="text-xs font-medium text-gray-300">Deliver to</p>
             </div>
@@ -55,7 +57,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1 border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-4">
+          <div className="flex items-center gap-1 cursor-pointer border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-4">
             <span>
               <FaFlagCheckered />
             </span>
@@ -65,7 +67,7 @@ export default function Header() {
             </span>
           </div>
           {isLogin ? (
-            <div className="flex flex-col items-center gap-1 border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
+            <div className="flex flex-col items-center gap-1 cursor-pointer border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
               <div className="flex items-center gap-3">
                 <RxAvatar className="text-3xl cursor-pointer" />
                 <p className="font-semibold text-xs">
@@ -74,7 +76,7 @@ export default function Header() {
               </div>
             </div>
           ) : (
-            <div className=" border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
+            <div className=" border-2 cursor-pointer rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
               <div>
                 {/* <p className="font-semibold text-xs">Hello, sign in</p> */}
                 <Link to="/login" className="font-semibold text-sm">
@@ -89,11 +91,11 @@ export default function Header() {
               </div>
             </div>
           )}
-          <div className=" border-2 rounded-[3px] border-black flex flex-col hover:border-gray-200 p-2 ">
+          <div className=" border-2 rounded-[3px] border-black flex flex-col cursor-pointer hover:border-gray-200 p-2 ">
             <p className="font-semibold text-xs">Returns</p>
             <p className="font-semibold text-sm">& Orders</p>
           </div>
-          <div className=" relative  border-2 rounded-[3px] border-black flex items-center justify-center text-center  py-2 px-1 hover:border-gray-200 ">
+          <div className=" relative  border-2 rounded-[3px] border-black flex items-center justify-center text-center  py-2 px-1 hover:border-gray-200 cursor-pointer ">
             <span>
               <SlBasket className="cursor-pointer" size={35} />
             </span>
@@ -105,10 +107,10 @@ export default function Header() {
             </span>
           </div>
         </div>
-      </body>
-      <body>
+      </main>
+      <main>
         <NavigationBar />
-      </body>
-    </header>
+      </main>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import Usermodel from "../../schema/user.model.js";
 export const getUserDetails = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.params.userId ;
     if (!userId || userId.length !== 24) {
       return res.status(400).json({
         success: false,
@@ -14,7 +14,8 @@ export const getUserDetails = async (req, res) => {
       return res.status(400).json({
         success: false,
         error: true,
-        message: "Something went wrong on get user details !",
+        message:
+          "Something went wrong on get user details! please login again ",
       });
     }
     const userData = user.toObject();
@@ -71,3 +72,4 @@ export const getOwnUserDetails = async (req, res) => {
     });
   }
 };
+
