@@ -20,7 +20,6 @@ export default function Register() {
     password: "",
     reEnterPassword: "",
   });
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,6 +29,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form Data:", formData);
 
     try {
       setLoading(true);
@@ -64,7 +64,7 @@ export default function Register() {
       console.log("Response Data:", res.data);
 
       if (res.data.success) {
-        navigate("/login")
+        navigate("/login");
         toast.success(res.data.message || "Registration successful!");
         setFormData({
           fullName: "",
@@ -105,9 +105,9 @@ export default function Register() {
             className="w-24 items-center mx-auto"
           />
         </div>
-        <div className="border border-slate-300 rounded-md p-6 flex flex-col gap-3 ">
+        <div className="border border-slate-300 rounded-md p-5 flex flex-col gap-3 ">
           <>
-            <h2 className="text-[27px] font-semibold text-zinc-700 ">
+            <h2 className="text-[30px] font-semibold text-zinc-800 ">
               Create account
             </h2>
           </>

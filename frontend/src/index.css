@@ -6,6 +6,9 @@
     --radius: 0.5rem;
   }
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 
 .swiper-button-prev {
   left: 60px !important;
