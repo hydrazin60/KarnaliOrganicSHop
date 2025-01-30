@@ -9,7 +9,7 @@
 .flex-wrap {
   flex-wrap: wrap;
 }
-
+ 
 .swiper-button-prev {
   left: 60px !important;
   top: 20% !important;
@@ -21,3 +21,4 @@
   top: 20% !important;
   color: blue !important;
 }
+

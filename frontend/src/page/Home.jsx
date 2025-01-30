@@ -90,8 +90,8 @@ export default function Home() {
   ];
 
   return (
-    <main className="bg-gray-100 relative flex justify-center mx-auto">
-      <div className="w-full ">
+    <main className="bg-gray-100 relative flex justify-center ">
+      <div className="w-full  ">
         <Swiper
           navigation={true}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
