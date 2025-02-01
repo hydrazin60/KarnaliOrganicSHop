@@ -1,196 +1,84 @@
-// import React from "react";
-
-// export default function HomeProduct() {
-//   const itemImagePhoto = [
-//     {
-//       id: 1,
-//       name: "small",
-//       imageLink: "smallImage1.jpg",
-//     },
-//     {
-//       id: 2,
-//       name: "small",
-//       imageLink: "smallImage2.jpg",
-//     },
-//     {
-//       id: 3,
-//       name: "small",
-//       imageLink: "smallImage3.jpg",
-//     },
-//     {
-//       id: 4,
-//       name: "small",
-//       imageLink: "smallImage4.jpg",
-//     },
-
-//     {
-//       id: 9,
-//       name: "larger",
-//       imageLink: "largeImage1.jpg",
-//     },
-//     {
-//       id: 11,
-//       name: "larger",
-//       imageLink: "largeimage3.jpg",
-//     },
-//     {
-//       id: 12,
-//       name: "larger",
-//       imageLink: "largeimage4.jpg",
-//     },
-//     {
-//       id: 14,
-//       name: "larger",
-//       imageLink: "largeimage6.jpg",
-//     },
-//   ];
-//   return (
-//     <div className="w-[95%] mx-auto ">
-//       <main className=" z-10">
-//         <div>
-//           <div className="flex items-center gap-8">
-//             {itemImagePhoto
-//               .filter((image) => image.name === "larger")
-//               .map((image, index) => (
-//                 <div
-//                   key={index}
-//                   className="flex flex-col items-center p-4 border rounded-md border-gray-300 bg-white h-fit"
-//                 >
-//                   <p className="text-2xl font-bold w-full text-center mb-4">
-//                     Get your game on
-//                   </p>
-//                   <img
-//                     src={image.imageLink}
-//                     alt="itemImage"
-//                     className="h-72 w-96 rounded-md object-center overflow-hidden object-cover"
-//                   />
-//                   <p className="text-blue-400 font-semibold mt-2">
-//                     Shop Gaming
-//                   </p>
-//                 </div>
-//               ))}
-//           </div>
-//           <div className="flex items-center gap-8">
-//             {itemImagePhoto
-//               .filter((image) => image.name === "small")
-//               .map((image, index) => (
-//                 <div
-//                   key={index}
-//                   className="flex flex-col items-center p-4 border rounded-md border-gray-300 bg-white h-fit"
-//                 >
-//                   <p className="text-2xl font-bold w-full text-center mb-4">
-//                     Get your game on
-//                   </p>
-//                   <img
-//                     src={image.imageLink}
-//                     alt="itemImage"
-//                     className="h-72 w-96 rounded-md object-center overflow-hidden object-cover"
-//                   />
-//                   <p className="text-blue-400 font-semibold mt-2">
-//                     Shop Gaming
-//                   </p>
-//                 </div>
-//               ))}
-//           </div>
-//         </div>
-
-//         <div> </div>
-//       </main>
-//     </div>
-//   );
-// }
-
 import React from "react";
-
+import BigImage from "../card/BigImage";
+import BestSellersBooks from "../card/BestSellersBooks";
+import BestBooks from "../card/BestBooks";
+import FourImageCOmbileProduct from "../card/fourImageCOmbileProduct";
 export default function HomeProduct() {
-  const itemImagePhoto = [
+  const smallBooksImage = [
     {
-      id: 1,
-      name: "small",
-      imageLink: "smallImage1.jpg",
+      title: "Rich Dad Poor Dad",
+      author: "Robert T. Kiyosaki",
+      price: "$10.99",
+      image: "https://m.media-amazon.com/images/I/71RnuhofxkL._AC_SY200_.jpg",
     },
     {
-      id: 2,
-      name: "small",
-      imageLink: "smallImage2.jpg",
+      title: "Think and Grow Rich",
+      author: "Napoleon Hill",
+      price: "$8.99",
+      image: "https://m.media-amazon.com/images/I/51f1GBu2w-L._AC_SY200_.jpg",
     },
     {
-      id: 3,
-      name: "small",
-      imageLink: "smallImage3.jpg",
+      title: "The Intelligent Investor",
+      author: "Benjamin Graham",
+      price: "$15.99",
+      image: "https://m.media-amazon.com/images/I/61RhzPcPXoL._AC_SY200_.jpg",
     },
     {
-      id: 4,
-      name: "small",
-      imageLink: "smallImage4.jpg",
+      title: "You Are a Badass",
+      author: "Jen Sincero",
+      price: "$13.99",
+      image: "https://m.media-amazon.com/images/I/71zk8GJLRLL._AC_SY200_.jpg",
     },
     {
-      id: 9,
-      name: "larger",
-      imageLink: "largeImage1.jpg",
+      title: "The Millionaire Fastlane",
+      author: "MJ DeMarco",
+      price: "$18.99",
+      image: "https://m.media-amazon.com/images/I/6174ZResW+L._AC_SY200_.jpg",
     },
     {
-      id: 11,
-      name: "larger",
-      imageLink: "largeimage3.jpg",
+      title: "The 4-Hour Workweek",
+      author: "Timothy Ferriss",
+      price: "$14.99",
+      image: "https://m.media-amazon.com/images/I/71zk8GJLRLL._AC_SY200_.jpg",
     },
     {
-      id: 12,
-      name: "larger",
-      imageLink: "largeimage4.jpg",
+      title: "The Magic of Thinking Big",
+      author: "David J. Schwartz",
+      price: "$9.99",
+      image: "https://m.media-amazon.com/images/I/6174ZResW+L._AC_SY200_.jpg",
     },
     {
-      id: 14,
-      name: "larger",
-      imageLink: "largeimage6.jpg",
+      title: "The Power of Habit",
+      author: "Charles Duhigg",
+      price: "$12.99",
+      image: "https://m.media-amazon.com/images/I/71zk8GJLRLL._AC_SY200_.jpg",
+    },
+    {
+      title: "The 7 Habits of Highly Effective People",
+      author: "Stephen R. Covey",
+      price: "$11.99",
+      image: "https://m.media-amazon.com/images/I/71zk8GJLRLL._AC_SY200_.jpg",
     },
   ];
-
   return (
-    <div className="w-[99%] mx-auto ">
-      <main className="z-10   ">
-        <div className="flex flex-wrap gap-6 mb-8">
-          {itemImagePhoto
-            .filter((image) => image.name === "larger")
-            .map((image, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center p-4 border rounded-md border-gray-300 bg-white h-auto"
-              >
-                <p className="text-2xl font-bold w-full text-center mb-4">
-                  Get your game on
-                </p>
-                <img
-                  src={image.imageLink}
-                  alt="itemImage"
-                  className="h-72 w-96 rounded-md object-center overflow-hidden object-cover"
-                />
-                <p className="text-blue-400 font-semibold mt-2">Shop Gaming</p>
-              </div>
-            ))}
+    <div className="w-[100%] px-16 mb-12  ">
+      <main className="z-10 flex flex-col gap-8  ">
+        <BigImage />
+        <div className=" flex gap-4 flex-wrap ">
+          <FourImageCOmbileProduct />
+          <FourImageCOmbileProduct />
+          <FourImageCOmbileProduct />
+          <FourImageCOmbileProduct />
         </div>
-
-        {/* Smaller Items */}
-        <div className="flex flex-wrap gap-8">
-          {itemImagePhoto
-            .filter((image) => image.name === "small")
-            .map((image, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center p-4 border rounded-md border-gray-300 bg-white h-auto"
-              >
-                <p className="text-2xl font-bold w-full text-center mb-4">
-                  Get your game on
-                </p>
-                <img
-                  src={image.imageLink}
-                  alt="itemImage"
-                  className="h-72 w-96 rounded-md object-center overflow-hidden object-cover"
-                />
-                <p className="text-blue-400 font-semibold mt-2">Shop Gaming</p>
-              </div>
-            ))}
+        <BestSellersBooks />
+        <BestBooks />
+        <div className=" flex gap-4 flex-wrap ">
+          <FourImageCOmbileProduct />
+          <FourImageCOmbileProduct />
+          <FourImageCOmbileProduct />
+          <FourImageCOmbileProduct />
         </div>
+        <BigImage />
       </main>
     </div>
   );

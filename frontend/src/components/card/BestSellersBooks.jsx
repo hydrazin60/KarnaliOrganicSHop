@@ -58,7 +58,7 @@ export default function BestSellersBooks() {
     },
   ];
   return (
-    <div className="flex gap-4 border bg-zinc-100 overflow-x-scrol rounded-xl flex-col  justify-center  items-center  ">
+    <div className="flex gap-2 py-4 border bg-zinc-100 overflow-x-scrol rounded-xl flex-col  justify-center  items-center  ">
       <p className="text-2xl font-bold">Best Sellers in Books</p>
       <div className="flex gap-4">
         {smallBooksImage.map((image, index) => (

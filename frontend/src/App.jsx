@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Login from "./page/Login";
 import { Divide } from "lucide-react";
 import Register from "./page/Register";
+import SpecificsProduct from "./components/product/specificsProduct";
 
 export default function App() {
   return (
@@ -17,7 +18,15 @@ export default function App() {
             <div>
               <Header />
               <Home />
-              {/* <Footer /> */}
+            </div>
+          }
+        />
+        <Route
+          path="/specificsProduct/:id"
+          element={
+            <div>
+              <Header />
+              <SpecificsProduct />
             </div>
           }
         />
