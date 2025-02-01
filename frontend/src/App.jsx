@@ -7,6 +7,7 @@ import Login from "./page/Login";
 import { Divide } from "lucide-react";
 import Register from "./page/Register";
 import SpecificsProduct from "./components/product/specificsProduct";
+import UserDashbord from "./page/UserDashbord";
 
 export default function App() {
   return (
@@ -27,6 +28,15 @@ export default function App() {
             <div>
               <Header />
               <SpecificsProduct />
+            </div>
+          }
+        />
+        <Route
+          path="/user/dashbord/:id"
+          element={
+            <div>
+              <Header />
+              <UserDashbord />
             </div>
           }
         />

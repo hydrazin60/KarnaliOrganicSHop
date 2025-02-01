@@ -1,90 +1,3 @@
-// import React from "react";
-
-// export default function ProductDetailsCard() {
-//   const itemImagePhoto = [
-//     {
-//       id: 1,
-//       name: "small",
-//       imageLink: "https://images.pexels.com/photos/18105/pexels-photo.jpg", // Small Laptop
-//     },
-//     {
-//       id: 2,
-//       name: "small",
-//       imageLink: "https://images.pexels.com/photos/18106/pexels-photo.jpg", // Small Gaming Mouse
-//     },
-//     {
-//       id: 3,
-//       name: "small",
-//       imageLink:
-//         "https://images.pexels.com/photos/414974/pexels-photo-414974.jpeg", // Small Keyboard
-//     },
-//     {
-//       id: 4,
-//       name: "small",
-//       imageLink:
-//         "https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg", // Small Monitor
-//     },
-//     {
-//       id: 9,
-//       name: "larger",
-//       imageLink:
-//         "https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg", // Large Laptop
-//     },
-//     {
-//       id: 11,
-//       name: "larger",
-//       imageLink:
-//         "https://images.pexels.com/photos/276514/pexels-photo-276514.jpeg", // Large Gaming PC
-//     },
-//     {
-//       id: 12,
-//       name: "larger",
-//       imageLink:
-//         "https://images.pexels.com/photos/1359321/pexels-photo-1359321.jpeg", // Large Headphones
-//     },
-//     {
-//       id: 14,
-//       name: "larger",
-//       imageLink:
-//         "https://images.pexels.com/photos/595267/pexels-photo-595267.jpeg", // Large Mechanical Keyboard
-//     },
-//   ];
-
-//   return (
-//     <div className="flex gap-3 flex-wrap items-center justify-center">
-//       {itemImagePhoto.map((item) => {
-//         return (
-//           <div
-//             key={item.id}
-//             className="flex gap-2 flex-col items-center w-[350px] justify-center bg-purple-700 "
-//           >
-//             <div className=" w-full bg-zinc-100 p-2 items-center justify-center ">
-//               <img
-//                 src={item.imageLink}
-//                 alt=""
-//                 className="w-[300px] h-[300px] "
-//               />
-//             </div>
-//             <div>
-//               <p>
-//                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga
-//                 hic, odit quo, voluptas pariatur tempore quam, dolorem ratione
-//                 nobis modi nihil error? Aliquam
-//               </p>
-//               <p>******</p>
-//               <p>Options: 2 sizes</p>
-//               <button>See option</button>
-//               <p>
-//                 Not features offers available $48.13 (19 used & new offers){" "}
-//               </p>
-//             </div>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
-
 import React from "react";
 
 export default function ProductDetailsCard() {
@@ -168,7 +81,7 @@ export default function ProductDetailsCard() {
               </button>
 
               <p className="text-gray-800 text-sm mt-3">
-                Available from $48.13 
+                Available from $48.13
                 <span className="text-blue-600"> (19 used & new offers)</span>
               </p>
             </div>
