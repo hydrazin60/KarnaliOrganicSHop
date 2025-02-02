@@ -1,191 +1,96 @@
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 
-// const userSchema = new mongoose.Schema(
-//   {
-//     fullName: {
-//       type: String,
-//       required: true,
-//     },
-//     profileImage: {
-//       type: String,
-//     },
-//     email: {
-//       type: String,
-//       required: true,
-//       unique: true,
-//     },
-//     password: {
-//       type: String,
-//       required: true,
-//     },
-//     mobileNumber: {
-//       type: String,
-//     },
-//     address: [
-//       {
-//         country: {
-//           type: String,
-//           default: "Nepal",
-//         },
-//         province: {
-//           type: String,
-//         },
-//         district: {
-//           type: String,
-//         },
-//         city: {
-//           type: String,
-//         },
-//         municipality: {
-//           type: String,
-//         },
-//         area: {
-//           type: String,
-//         },
-//         tole: {
-//           type: String,
-//         },
-//         homeNumber: {
-//           type: String,
-//         },
-//       },
-//     ],
-//     history: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "Product",
-//       },
-//     ],
-//     totalOrder: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "Product",
-//       },
-//     ],
-//     userType: {
-//       type: String,
-//       enum: ["user", "admin", "superAdmin"],
-//       default: "user",
-//     },
-//     orderCancle: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "Product",
-//       },
-//     ],
-//     userRole: {
-//       type: String,
-//       enum: ["user", "admin", "superAdmin"],
-//       default: "user",
-//     },
-//   },
-//   {
-//     timestamps: true,
-//   }
-// );
-
-// const User = mongoose.model("User", userSchema);
-// export default User;
-
-import mongoose from "mongoose"; // Import Mongoose for MongoDB object modeling
-
-// Define a schema for storing user details
 const userSchema = new mongoose.Schema(
   {
-    // Full name of the user
     fullName: {
-      type: String, // Data type: String
-      required: true, // This field is mandatory
+      type: String,
+      required: true,
     },
-    // Profile image URL of the user
     profileImage: {
-      type: String, // Data type: String
+      type: String,
     },
-    // Email address of the user
     email: {
-      type: String, // Data type: String
-      required: true, // This field is mandatory
-      unique: true, // Ensures each email is unique
+      type: String,
+      required: true,
+      unique: true,
     },
-    // Encrypted password of the user
+
     password: {
-      type: String, // Data type: String
-      required: true, // This field is mandatory
+      type: String,
+      required: true,
     },
-    // Mobile number of the user
+
     mobileNumber: {
-      type: String, // Data type: String
+      type: String,
     },
-    // Address details for the user (can store multiple addresses)
     address: [
       {
         country: {
-          type: String, // Country name
-          default: "Nepal", // Default country is Nepal
+          type: String,
+          default: "Nepal",
         },
         province: {
-          type: String, // Province name
+          type: String,
         },
         district: {
-          type: String, // District name
+          type: String,
         },
         city: {
-          type: String, // City name
+          type: String,
         },
         municipality: {
-          type: String, // Municipality name
+          type: String,
         },
         area: {
-          type: String, // Area name
+          type: String,
         },
         tole: {
-          type: String, // Tole (neighborhood) name
+          type: String,
         },
         homeNumber: {
-          type: String, // Home number
+          type: String,
         },
       },
     ],
-    // User's purchase history
     history: [
       {
-        type: mongoose.Schema.Types.ObjectId, // Reference to the Product model
-        ref: "Product", // Name of the referenced collection
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ProductOrder",
       },
     ],
-    // List of total orders made by the user
     totalOrder: [
       {
-        type: mongoose.Schema.Types.ObjectId, // Reference to the Product model
-        ref: "Product", // Name of the referenced collection
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ProductOrder",
       },
     ],
-    // Type of the user (regular user, admin, or super admin)
     userType: {
-      type: String, // Data type: String
-      enum: ["user", "admin", "superAdmin"], // Predefined roles
-      default: "user", // Default role is "user"
+      type: String,
+      enum: ["user", "admin", "deliveryBoy"],
+      default: "user",
     },
-    // List of orders canceled by the user
     orderCancle: [
       {
-        type: mongoose.Schema.Types.ObjectId, // Reference to the Product model
-        ref: "Product", // Name of the referenced collection
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ProductOrder",
       },
     ],
-    // User's role in the system
-    userRole: {
-      type: String, // Data type: String
-      enum: ["user", "admin", "superAdmin"], // Predefined roles
-      default: "user", // Default role is "user"
+    isBlocked: {
+      type: Boolean,
+      default: false,
     },
+    AuthorUploadPrduct: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   {
-    timestamps: true, // Automatically add `createdAt` and `updatedAt` timestamps
+    timestamps: true,
   }
 );
 
-// Create a Mongoose model based on the schema
 const User = mongoose.model("User", userSchema);
-// Export the model to use it in other parts of the application
+
 export default User;

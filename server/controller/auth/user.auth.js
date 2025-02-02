@@ -1,6 +1,7 @@
 import Usermodel from "../../schema/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cloudinary from "../../utils/cloudinary.js";
 export const registerUser = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
@@ -30,6 +31,7 @@ export const registerUser = async (req, res) => {
       success: true,
       error: false,
       message: `Welcome ${fullName} in our website! Please Go to login page to buy your choice Product`,
+      data: newUser,
     });
   } catch (error) {
     console.log(`Error occured in Register User ${error.message}`);
@@ -96,3 +98,58 @@ export const loginUser = async (req, res) => {
   }
 };
 
+export const UploadUserDetails = async (req, res) => {
+  try {
+    const { fullName, mobileNumber, address } = req.body;
+    const userId = req.userId;
+    console.log(fullName , mobileNumber , address);
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        error: true,
+        message: "Unauthorized access! Please login first",
+      });
+    }
+
+    const user = await Usermodel.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "User not found! Please login again",
+      });
+    }
+
+    let profileImageURI = user.profileImage; // Keep existing image if not updating
+
+    if (req.file) {
+      const cloudResponse = await cloudinary.uploader.upload(req.file.path);
+      profileImageURI = cloudResponse.secure_url;
+    }
+
+    // Update user details
+    user.fullName = fullName || user.fullName;
+    user.mobileNumber = mobileNumber || user.mobileNumber;
+    user.address = address || user.address;
+    user.profileImage = profileImageURI;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "User details updated successfully",
+      data: user,
+    });
+  } catch (error) {
+    console.error(
+      `Error occurred while updating user details: ${error.message}`
+    );
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: `Error occurred while updating user details: ${error.message}`,
+    });
+  }
+};

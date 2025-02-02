@@ -1,185 +1,123 @@
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 
-// const mongoSchema = new mongoose.Schema(
-//   {
-//     productName: {
-//       type: String,
-//       required: true,
-//       validate: {
-//         validator: function (value) {
-//           return value.length <= 100;
-//         },
-//         message: "A product name cannot exceed 100 characters.",
-//       },
-//     },
-//     productPrice: {
-//       type: Number,
-//       required: true,
-//     },
-//     productImage: {
-//       type: [String],
-//       required: true,
-//       validate: {
-//         validator: function (value) {
-//           return value.length <= 5;
-//         },
-//         message: "A product can have a maximum of 5 images.",
-//       },
-//     },
-//     productDescription: {
-//       type: String,
-//       validate: {
-//         validator: function (value) {
-//           return value.length <= 500;
-//         },
-//         message: "A product description cannot exceed 500 characters.",
-//       },
-//     },
-//     productType: {
-//       type: String,
-//       enum: ["electronic", "clothing", "Beauty", "Book"],
-//       required: true,
-//     },
-//     productCategory: {
-//       type: String,
-//       enum: ["mobile", "laptop", "tv", "camera", "watch", "headphone"],
-//       required: true,
-//     },
-//     productCategoryByAge: {
-//       type: String,
-//       enum: ["kid", "woman", "man"],
-//       required: true,
-//     },
-//     productBrand: {
-//       type: String,
-//       required: true,
-//     },
-//     productQuantity: {
-//       type: Number,
-//       default: 1,
-//     },
-//     productRating: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "ProductReview",
-//       },
-//     ],
-//     productCancelReason: [
-//       {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: "OrderCancelReason",
-//       },
-//     ],
-//     finalPrice: {
-//       type: Number,
-//       required: true,
-//     },
-//   },
-//   {
-//     timestamps: true,
-//   }
-// );
-
-// const Product = mongoose.model("Product", mongoSchema);
-// export default Product;
-
-import mongoose from "mongoose"; // Import Mongoose for MongoDB object modeling
-
-// Define the schema for storing product details
-const mongoSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema(
   {
-    // Name of the product
     productName: {
-      type: String, // Data type: String
-      required: true, // This field is mandatory
+      type: String,
+      required: true,
       validate: {
         validator: function (value) {
-          return value.length <= 100; // Name must not exceed 100 characters
+          return value.length <= 100;
         },
-        message: "A product name cannot exceed 100 characters.", // Error message
+        message: "A product name cannot exceed 100 characters.",
       },
     },
-    // Price of the product
-    productPrice: {
-      type: Number, // Data type: Number
-      required: true, // This field is mandatory
+    prdouctPrice: {
+      type: Number,
+      required: true,
     },
-    // Array of product image URLs
     productImage: {
-      type: [String], // Array of strings
-      required: true, // At least one image is required
+      type: [String],
+      required: true,
       validate: {
         validator: function (value) {
-          return value.length <= 5; // Limit to a maximum of 5 images
+          return value.length <= 5;
         },
-        message: "A product can have a maximum of 5 images.", // Error message
+        message: "A product can have a maximum of 5 images.",
       },
     },
-    // Description of the product
+    productReviewVideo: {
+      type: String,
+      default: "",
+    },
     productDescription: {
-      type: String, // Data type: String
+      type: String,
       validate: {
         validator: function (value) {
-          return value.length <= 500; // Limit description to 500 characters
+          return value.length <= 500;
         },
-        message: "A product description cannot exceed 500 characters.", // Error message
+        message: "A product description cannot exceed 500 characters.",
       },
     },
-    // Type of the product (e.g., category type)
     productType: {
-      type: String, // Data type: String
-      enum: ["electronic", "clothing", "Beauty", "Book"], // Predefined values
-      required: true, // This field is mandatory
+      type: String,
+      enum: ["electronic", "clothing", "Beauty", "Book"],
+      required: true,
     },
-    // Specific product category
     productCategory: {
-      type: String, // Data type: String
-      enum: ["mobile", "laptop", "tv", "camera", "watch", "headphone"], // Predefined values
-      required: true, // This field is mandatory
+      type: String,
+      enum: [
+        "mobile",
+        "laptop",
+        "tv",
+        "camera",
+        "watch",
+        "headphone",
+        "clouth",
+        "shoes",
+        "bag",
+        "accessories",
+        "jewellery",
+        "furniture",
+        "books",
+      ],
+      required: true,
     },
-    // Target age group or demographic for the product
     productCategoryByAge: {
-      type: String, // Data type: String
-      enum: ["kid", "woman", "man"], // Predefined values
-      required: true, // This field is mandatory
+      type: String,
+      enum: ["kid", "woman", "man", "adult", "old"],
+      required: true,
     },
-    // Brand of the product
+
     productBrand: {
-      type: String, // Data type: String
-      required: true, // This field is mandatory
+      type: String,
+      enum: [
+        "Apple",
+        "Asus",
+        "Acer",
+        "Dell",
+        "HP",
+        "Lenovo",
+        "jara",
+        "sony",
+        "JBL",
+        "other",
+        "The North Face",
+        "Adidas",
+        "Puma",
+        "Nike",
+        "Under Armour",
+        "Reebok",
+        "New Balance",
+        "Vans",
+      ],
+      default: "other",
     },
-    // Available quantity of the product
+
     productQuantity: {
-      type: Number, // Data type: Number
-      default: 1, // Default value: 1
+      type: Number,
+      default: 1,
     },
-    // References to reviews associated with the product
+
     productRating: [
       {
-        type: mongoose.Schema.Types.ObjectId, // Reference to another document
-        ref: "ProductReview", // Name of the referenced collection
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ProductReview",
       },
     ],
-    // References to cancellation reasons associated with the product
-    productCancelReason: [
-      {
-        type: mongoose.Schema.Types.ObjectId, // Reference to another document
-        ref: "OrderCancelReason", // Name of the referenced collection
-      },
-    ],
-    // Final price after any discounts or adjustments
-    finalPrice: {
-      type: Number, // Data type: Number
-      required: true, // This field is mandatory
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    discount: {
+      type: Number,
+      default: 0,
     },
   },
   {
-    timestamps: true, // Automatically add `createdAt` and `updatedAt` timestamps
+    timestamps: true,
   }
 );
 
-// Create a Mongoose model based on the schema
-const Product = mongoose.model("Product", mongoSchema);
-
-// Export the model to use it in other parts of the application
+const Product = mongoose.model("Product", ProductSchema);
 export default Product;

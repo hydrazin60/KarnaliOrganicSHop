@@ -1,7 +1,7 @@
 import Usermodel from "../../schema/user.model.js";
 export const getUserDetails = async (req, res) => {
   try {
-    const userId = req.params.userId ;
+    const userId = req.params.userId;
     if (!userId || userId.length !== 24) {
       return res.status(400).json({
         success: false,
@@ -32,6 +32,7 @@ export const getUserDetails = async (req, res) => {
       success: false,
       error: true,
       message: "Something went wrong on get user details !",
+      
     });
   }
 };
@@ -46,7 +47,7 @@ export const getOwnUserDetails = async (req, res) => {
         message: "Something went wrong on get user details  ok !",
       });
     }
-
+    
     const user = await Usermodel.findById(userId);
     if (!user) {
       return res.status(400).json({
@@ -72,4 +73,3 @@ export const getOwnUserDetails = async (req, res) => {
     });
   }
 };
-
