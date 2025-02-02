@@ -102,8 +102,6 @@ export const UploadUserDetails = async (req, res) => {
   try {
     const { fullName, mobileNumber, address } = req.body;
     const userId = req.userId;
-    console.log(fullName , mobileNumber , address);
-
     if (!userId) {
       return res.status(401).json({
         success: false,
@@ -124,11 +122,18 @@ export const UploadUserDetails = async (req, res) => {
     let profileImageURI = user.profileImage; // Keep existing image if not updating
 
     if (req.file) {
-      const cloudResponse = await cloudinary.uploader.upload(req.file.path);
+      const fileBuffer = req.file.buffer; // Access the file buffer
+      const cloudResponse = await cloudinary.uploader.upload(
+        `data:${req.file.mimetype};base64,${fileBuffer.toString("base64")}`,
+        {
+          folder: "profile_images", // Optional: Specify a folder in Cloudinary
+        }
+      );
       profileImageURI = cloudResponse.secure_url;
+    } else {
+      console.log("No file received in the request.");
     }
 
-    // Update user details
     user.fullName = fullName || user.fullName;
     user.mobileNumber = mobileNumber || user.mobileNumber;
     user.address = address || user.address;

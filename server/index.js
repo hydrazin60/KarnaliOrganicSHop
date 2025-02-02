@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth.routes.js";
 import cors from "cors";
-import userRoutes from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import ProductRouter from "./routes/admin/Product.routes.js";
+import userRouter from "./routes/user/user.routes.js";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.use(
 );
 
 app.use("/api/v1/amazoneClone/user/auth", authRouter);
-app.use("/api/v1/amazoneClone/user/activity", userRoutes);
+app.use("/api/v1/amazoneClone/user", userRouter);
 app.use("/api/v1/amazoneClone/product", ProductRouter);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

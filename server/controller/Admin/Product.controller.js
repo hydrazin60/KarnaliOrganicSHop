@@ -131,6 +131,12 @@ export const uploadProduct = async (req, res) => {
       .populate("authorId", "fullName email address mobileNumber")
       .exec();
 
+    const user = await Usermodel.findById(populatedProduct.authorId);
+    if (user) {
+      user.AuthorUploadPrduct.push(newProduct._id);
+      await user.save();
+    }
+
     return res.status(200).json({
       success: true,
       error: false,

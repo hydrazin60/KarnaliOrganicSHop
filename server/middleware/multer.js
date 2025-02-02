@@ -51,8 +51,8 @@
 
 import multer from "multer";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;  
-const MAX_VIDEO_SIZE = 100 * 1024 * 1024;  
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_VIDEO_SIZE = 100 * 1024 * 1024;
 
 const uploadMedia = multer({
   storage: multer.memoryStorage(),
@@ -99,4 +99,20 @@ const uploadImagesAndVideo = uploadMedia.fields([
   { name: "productReviewVideo", maxCount: 1 }, // Single video
 ]);
 
-export { uploadImagesAndVideo };
+const uploadProfileImage = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_FILE_SIZE }, // 10MB limit for profile images
+  fileFilter: (req, file, cb) => {
+    const allowedImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (allowedImageTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(
+        new Error("Invalid file type. Only JPEG, PNG, and JPG allowed."),
+        false
+      );
+    }
+  },
+}).single("profileImage"); // Use .single() for a single file upload
+
+export { uploadImagesAndVideo  , uploadProfileImage };
