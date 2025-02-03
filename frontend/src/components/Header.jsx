@@ -8,8 +8,11 @@ import { SlBasket } from "react-icons/sl";
 import NavigationBar from "./NavigationBar";
 import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const user = useSelector((state) => state?.user?.user);
+  console.log(user);
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   return (
@@ -78,10 +81,18 @@ export default function Header() {
           ) : (
             <div className=" border-2 cursor-pointer rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
               <div>
-                {/* <p className="font-semibold text-xs">Hello, sign in</p> */}
-                <Link to="/login" className="font-semibold text-sm">
-                  Sign in
-                </Link>
+                {user ? (
+                  <p className="font-semibold text-xs">
+                    Hello,{" "}
+                    {user?.fullName.length > 10
+                      ? user?.fullName.slice(0, 10) + "..."
+                      : user?.fullName}{" "}
+                  </p>
+                ) : (
+                  <Link to="/login" className="font-semibold text-sm">
+                    Sign in
+                  </Link>
+                )}
               </div>
               <div className="flex items-center gap-1">
                 <p className="font-semibold text-sm">Account & Lists</p>

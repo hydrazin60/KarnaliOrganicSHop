@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
@@ -8,7 +7,10 @@ import { IoEyeOffOutline } from "react-icons/io5";
 import { IoEyeOutline } from "react-icons/io5";
 import { toast } from "sonner";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "@/redux/slice/userSlice";
 export default function Login() {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoding, setIsLoding] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,6 +43,7 @@ export default function Login() {
       );
       setIsLoding(false);
       if (res.data.success) {
+        dispatch(setUserDetails(res.data.data));
         toast.success(res.data.message || "Login successful");
         navigate("/");
         setFormData({

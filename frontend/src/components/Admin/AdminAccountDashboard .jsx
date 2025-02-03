@@ -3,6 +3,12 @@ import React from "react";
 export default function AdminAccountDashboard() {
   const adminOptions = [
     {
+      title: "upload Products",
+      description: "Approve or reject company registrations",
+      image:
+        "https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg",
+    },
+    {
       title: "Manage Users",
       description: "View, edit, or remove user accounts",
       image:
@@ -20,12 +26,7 @@ export default function AdminAccountDashboard() {
       image:
         "https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg",
     },
-    {
-      title: "upload Products",
-      description: "Approve or reject company registrations",
-      image:
-        "https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg",
-    },
+
     {
       title: "User Messages",
       description: "View and respond to user inquiries",
