@@ -176,7 +176,7 @@ export default function ProductUpload() {
     try {
       if (
         !productDetails.productName ||
-        !productDetails.prdouctPrice || // Ensure this matches backend
+        !productDetails.prdouctPrice ||  
         !productDetails.productDescription ||
         !productDetails.productType ||
         !productDetails.productCategory ||
@@ -428,7 +428,7 @@ export default function ProductUpload() {
               voluptate labore impedit! Sapiente ex officiis blanditiis
             </p>
           </span>
-          <div className="border border-zinc-400 flex gap-1 justify-evenly">
+          <div className="border p-2 justify-between border-zinc-400 flex gap-1 ">
             <div
               className="h-44 w-44 relative border-2 p-2 border-zinc-400 rounded-xl flex items-center justify-center cursor-pointer"
               onClick={() =>

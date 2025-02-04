@@ -9,6 +9,7 @@ import Register from "./page/Register";
 import SpecificsProduct from "./components/product/specificsProduct";
 import UserDashbord from "./page/UserDashbord";
 import ProductUpload from "./page/Admin/ProductUpload";
+import ManageUsers from "./page/Admin/ManageUsers";
 
 export default function App() {
   return (
@@ -47,6 +48,15 @@ export default function App() {
             <>
               <Header />
               <ProductUpload />
+            </>
+          }
+        />
+        <Route
+          path="/admin/manage_users/:id"
+          element={
+            <>
+              <Header />
+              <ManageUsers />
             </>
           }
         />

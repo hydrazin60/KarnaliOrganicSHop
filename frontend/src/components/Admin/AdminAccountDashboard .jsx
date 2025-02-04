@@ -54,6 +54,8 @@ export default function AdminAccountDashboard() {
   const onclick = (title) => {
     if (title == "upload Products") {
       navigate(`/admin/product/upload/${user._id}`);
+    } else if (title == "Manage Users") {
+      navigate(`/admin/manage_users/${user._id}`);
     }
   };
 
