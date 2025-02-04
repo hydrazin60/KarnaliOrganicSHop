@@ -1,6 +1,11 @@
 import React from "react";
+import { use } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminAccountDashboard() {
+  const user = useSelector((state) => state?.user?.user);
+  const navigate = useNavigate();
   const adminOptions = [
     {
       title: "upload Products",
@@ -12,7 +17,7 @@ export default function AdminAccountDashboard() {
       title: "Manage Users",
       description: "View, edit, or remove user accounts",
       image:
-        "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg",
+        "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg",
     },
     {
       title: "Manage Order Lists",
@@ -46,6 +51,12 @@ export default function AdminAccountDashboard() {
     },
   ];
 
+  const onclick = (title) => {
+    if (title == "upload Products") {
+      navigate(`/admin/product/upload/${user._id}`);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-20 ">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  ">
@@ -53,6 +64,9 @@ export default function AdminAccountDashboard() {
           <div
             key={index}
             className="flex items-center gap-4 p-4 h-40 border border-zinc-400 cursor-pointer hover:bg-gray-100 rounded-lg shadow-md"
+            onClick={() => {
+              onclick(option.title);
+            }}
           >
             <div>
               <img

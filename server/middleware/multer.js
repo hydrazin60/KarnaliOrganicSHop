@@ -98,7 +98,6 @@ const uploadImagesAndVideo = uploadMedia.fields([
   { name: "productImage", maxCount: 5 }, // Multiple images (max 5)
   { name: "productReviewVideo", maxCount: 1 }, // Single video
 ]);
-
 const uploadProfileImage = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE }, // 10MB limit for profile images

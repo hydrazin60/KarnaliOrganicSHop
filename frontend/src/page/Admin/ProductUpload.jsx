@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { SlBasket } from "react-icons/sl";
 import { RxCross2 } from "react-icons/rx";
-
+import { toast } from "sonner";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
 export default function ProductUpload() {
   const user = useSelector((state) => state?.user?.user);
   const categories = [
@@ -48,14 +50,14 @@ export default function ProductUpload() {
   const [productReviewVideo, setProductReviewVideo] = useState(null);
   const [productDetails, setProductDetails] = useState({
     productName: "",
-    productPrice: "",
+    prdouctPrice: "",
     productDescription: "",
     productType: "",
     productCategory: "",
     productCategoryByAge: "",
-    productBrand: "",
+    productBrand: "other",
     productQuantity: 1,
-    productImages: [],
+    productImage: [],
     productReviewVideo: null,
   });
   useEffect(() => {
@@ -75,15 +77,13 @@ export default function ProductUpload() {
 
   const handleProductImageChange = (e) => {
     const files = Array.from(e.target.files);
-
     if (productImage.length + files.length > 5) {
       alert("You can upload a maximum of 5 images.");
       return;
     }
-
     setIsLoading(true);
     const imageData = files.map((file) => ({
-      name: file.name,
+      name: "productImage",
       file: file,
       preview: URL.createObjectURL(file),
     }));
@@ -93,7 +93,6 @@ export default function ProductUpload() {
 
   const handleProductReviewVideoChange = (e) => {
     const videoFile = e.target.files[0];
-
     if (videoFile) {
       setIsLoading(true);
       const videoURL = URL.createObjectURL(videoFile);
@@ -105,64 +104,161 @@ export default function ProductUpload() {
       setIsLoading(false);
     }
   };
-
   const removeImage = (index) => {
     setProductImage((prevImages) => prevImages.filter((_, i) => i !== index));
   };
-
   const removeVideo = () => {
     setProductReviewVideo(null);
   };
 
-  // const handleProductDetailsChange = (e) => {
-  //   setProductDetails({
-  //     ...productDetails,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // const handleProductImageChange = (e) => {
-  //   const files = Array.from(e.target.files);
-
-  //   if (productImage.length + files.length > 5) {
-  //     alert("You can upload a maximum of 5 images.");
-  //     return;
-  //   }
-
-  //   setIsLoading(true);
-  //   const imageData = files.map((file) => ({
-  //     name: file.name,
-  //     file: file,
-  //     preview: URL.createObjectURL(file),
-  //   }));
-  //   setProductImage((prevImages) => [...prevImages, ...imageData]);
-
-  //   setIsLoading(false);
-  // };
-
-  // const handleProductReviewVideoChange = (e) => {
-  //   const videoFile = e.target.files[0];
-
-  //   if (videoFile) {
+  // const handleProductUpload = async (e) => {
+  //   e.preventDefault();
+  //   console.log(productDetails);
+  //   try {
+  //     if (
+  //       !productDetails.productName ||
+  //       !productDetails.prdouctPrice ||
+  //       !productDetails.productDescription ||
+  //       !productDetails.productType ||
+  //       !productDetails.productCategory ||
+  //       !productDetails.productCategoryByAge
+  //     ) {
+  //       toast.error("Please fill in all the required fields.");
+  //       return;
+  //     }
   //     setIsLoading(true);
-  //     const videoURL = URL.createObjectURL(videoFile);
-  //     setProductReviewVideo({
-  //       name: videoFile.name,
-  //       file: videoFile,
-  //       url: videoURL,
-  //     });
+  //     const res = await axios.post(
+  //       "http://localhost:4000/api/v1/amazoneClone/product/upload_product",
+  //       productDetails,
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+
   //     setIsLoading(false);
+  //     if (res.data.success) {
+  //       toast.success(res.data.message);
+  //       setProductDetails({
+  //         productName: "",
+  //         productPrice: "",
+  //         productDescription: "",
+  //         productType: "",
+  //         productCategory: "",
+  //         productCategoryByAge: "",
+  //         productBrand: "other",
+  //         productQuantity: 1,
+  //         productImages: [],
+  //         productReviewVideo: null,
+  //       });
+  //       setProductImage([]);
+  //       setProductReviewVideo(null);
+  //     }
+  //   } catch (error) {
+  //     if (error.response) {
+  //       console.error("Server Error:", error.response.data);
+  //       toast.error(error.response.data.message || "Server error occurred.");
+  //     } else if (error.request) {
+  //       console.error("Network Error:", error.request);
+  //       toast.error("Network error. Please check your internet connection.");
+  //     } else {
+  //       console.error("Unexpected Error:", error.message);
+  //       toast.error("An unexpected error occurred. Please try again.");
+  //     }
   //   }
   // };
 
-  // const removeImage = (index) => {
-  //   setProductImage((prevImages) => prevImages.filter((_, i) => i !== index));
-  // };
+  const handleProductUpload = async (e) => {
+    e.preventDefault();
 
-  // const removeVideo = () => {
-  //   setProductReviewVideo(null);
-  // };
-  console.log(productDetails);
+    try {
+      if (
+        !productDetails.productName ||
+        !productDetails.prdouctPrice || // Ensure this matches backend
+        !productDetails.productDescription ||
+        !productDetails.productType ||
+        !productDetails.productCategory ||
+        !productDetails.productCategoryByAge
+      ) {
+        toast.error("Please fill in all the required fields.");
+        return;
+      }
+
+      setIsLoading(true);
+
+      // Create FormData object
+      const formData = new FormData();
+      formData.append("productName", productDetails.productName);
+      formData.append("prdouctPrice", productDetails.prdouctPrice);
+      formData.append("productDescription", productDetails.productDescription);
+      formData.append("productType", productDetails.productType);
+      formData.append("productCategory", productDetails.productCategory);
+      formData.append(
+        "productCategoryByAge",
+        productDetails.productCategoryByAge
+      );
+      formData.append("productBrand", productDetails.productBrand);
+      formData.append("productQuantity", productDetails.productQuantity);
+
+      // Append images to FormData
+      productImage.forEach((image) => {
+        formData.append("productImage", image.file); // Append only the file
+      });
+
+      // Append review video if it exists
+      if (productReviewVideo) {
+        formData.append("productReviewVideo", productReviewVideo.file);
+      }
+
+      // Make API call
+      const res = await axios.post(
+        "http://localhost:4000/api/v1/amazoneClone/product/upload_product",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setIsLoading(false);
+      if (res.data.success) {
+        toast.success(res.data.message);
+
+        // Reset form after successful upload
+        setProductDetails({
+          productName: "",
+          prdouctPrice: "",
+          productDescription: "",
+          productType: "",
+          productCategory: "",
+          productCategoryByAge: "",
+          productBrand: "other",
+          productQuantity: 1,
+          productImages: [],
+          productReviewVideo: null,
+        });
+
+        setProductImage([]);
+        setProductReviewVideo(null);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      if (error.response) {
+        console.error("Server Error:", error.response.data);
+        toast.error(error.response.data.message || "Server error occurred.");
+      } else if (error.request) {
+        console.error("Network Error:", error.request);
+        toast.error("Network error. Please check your internet connection.");
+      } else {
+        console.error("Unexpected Error:", error.message);
+        toast.error("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
 
   return (
     <div className="flex h-[100vh]">
@@ -227,7 +323,10 @@ export default function ProductUpload() {
         </div>
       </div>
       <div className="h-[100vh] w-full flex justify-center p-10">
-        <form className="h-fit w-[80%] p-10 flex flex-col justify-between gap-8 border shadow-lg border-zinc-500 rounded-lg">
+        <form
+          className="h-fit w-[80%] p-10 flex flex-col justify-between gap-8 border shadow-lg border-zinc-500 rounded-lg"
+          onSubmit={handleProductUpload}
+        >
           <p className="text-2xl font-semibold text-zinc-900">Details</p>
           <div className="flex gap-9">
             <input
@@ -243,14 +342,13 @@ export default function ProductUpload() {
               className="w-40 p-2 placeholder:text-zinc-500 rounded-xl border-2 border-zinc-400"
               type="number"
               placeholder="Product Price"
-              name="productPrice"
+              name="prdouctPrice"
               required
-              value={productDetails.productPrice}
+              value={productDetails.prdouctPrice}
               onChange={handleProductDetailsChange}
             />
           </div>
           <div>
-            <label htmlFor="productDescription"></label>
             <textarea
               className="w-1/2 rounded-xl placeholder:text-zinc-400 placeholder:font-[400] border-2 border-zinc-400 p-2"
               name="productDescription"
@@ -263,7 +361,6 @@ export default function ProductUpload() {
             ></textarea>
           </div>
           <div>
-            <label htmlFor="productQuantity"></label>
             <input
               className="w-40 p-2 rounded-xl placeholder:text-zinc-500 border-2 border-zinc-400"
               type="number"
@@ -422,7 +519,6 @@ export default function ProductUpload() {
                 placeholder="Product Brand"
                 name="productBrand"
                 list="productBrand"
-                required
                 value={productDetails.productBrand}
                 onChange={handleProductDetailsChange}
               />
@@ -450,6 +546,9 @@ export default function ProductUpload() {
               ))}
             </datalist>
           </div>
+          <Button type="submit" className="w-52 mt-4">
+            {isLoading ? "Uploading..." : "Upload Product"}
+          </Button>
         </form>
       </div>
     </div>
