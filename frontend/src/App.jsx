@@ -8,6 +8,7 @@ import { Divide } from "lucide-react";
 import Register from "./page/Register";
 import SpecificsProduct from "./components/product/specificsProduct";
 import UserDashbord from "./page/UserDashbord";
+import ProductUpload from "./page/Admin/ProductUpload";
 
 export default function App() {
   return (
@@ -16,28 +17,37 @@ export default function App() {
         <Route
           path="/"
           element={
-            <div>
+            <>
               <Header />
               <Home />
-            </div>
+            </>
           }
         />
         <Route
           path="/specificsProduct/:id"
           element={
-            <div>
+            <>
               <Header />
               <SpecificsProduct />
-            </div>
+            </>
           }
         />
         <Route
           path="/user/dashbord/:id"
           element={
-            <div>
+            <>
               <Header />
               <UserDashbord />
-            </div>
+            </>
+          }
+        />
+        <Route
+          path="/admin/product/upload/:id"
+          element={
+            <>
+              <Header />
+              <ProductUpload />
+            </>
           }
         />
         <Route path="/login" element={<Login />} />

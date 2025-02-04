@@ -12,8 +12,6 @@ import { useSelector } from "react-redux";
 
 export default function Header() {
   const user = useSelector((state) => state?.user?.user);
-  console.log(user);
-  const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
   return (
     <>
@@ -69,39 +67,46 @@ export default function Header() {
               <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
             </span>
           </div>
-          {isLogin ? (
-            <div className="flex flex-col items-center gap-1 cursor-pointer border-2 rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
-              <div className="flex items-center gap-3">
-                <RxAvatar className="text-3xl cursor-pointer" />
-                <p className="font-semibold text-xs">
-                  Hello, <br /> Jiban ..
-                </p>
+          <div className="relative">
+            {user ? (
+              <div
+                className=" border-2 cursor-pointer  rounded-[3px] border-black hover:border-gray-200 p-2 py-2 "
+                onClick={() => navigate(`/user/dashbord/${user?._id}`)}
+              >
+                <div>
+                  {
+                    <p className="font-semibold text-xs">
+                      Hello,
+                      {user?.fullName.length > 10
+                        ? user?.fullName.slice(0, 10) + "..."
+                        : user?.fullName}{" "}
+                    </p>
+                  }
+                </div>
+                <div className="flex items-center gap-1">
+                  <p className="font-semibold text-sm">Account & Lists</p>
+                  <span>
+                    <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
+                  </span>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className=" border-2 cursor-pointer rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
-              <div>
-                {user ? (
-                  <p className="font-semibold text-xs">
-                    Hello,{" "}
-                    {user?.fullName.length > 10
-                      ? user?.fullName.slice(0, 10) + "..."
-                      : user?.fullName}{" "}
-                  </p>
-                ) : (
+            ) : (
+              <div className=" border-2 cursor-pointer rounded-[3px] border-black hover:border-gray-200 p-2 py-2 ">
+                <div className="flex items-center gap-1">
+                  <p className="font-semibold text-xs">Hello,</p>
                   <Link to="/login" className="font-semibold text-sm">
                     Sign in
                   </Link>
-                )}
+                </div>
+                <div className="flex items-center gap-1">
+                  <p className="font-semibold text-sm">Account & Lists</p>
+                  <span>
+                    <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center gap-1">
-                <p className="font-semibold text-sm">Account & Lists</p>
-                <span>
-                  <FaCaretDown className="cursor-pointer text-xs text-zinc-400" />
-                </span>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
           <div className=" border-2 rounded-[3px] border-black flex flex-col cursor-pointer hover:border-gray-200 p-2 ">
             <p className="font-semibold text-xs">Returns</p>
             <p className="font-semibold text-sm">& Orders</p>
