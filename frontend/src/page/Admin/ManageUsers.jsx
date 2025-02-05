@@ -30,7 +30,6 @@ export default function ManageUsers() {
         }
       );
       setUsers(res.data.data);
-      console.log(res.data.data);
       toast.success(res.data.message || "Users fetched successfully");
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -205,7 +204,7 @@ export default function ManageUsers() {
                         {user?.address?.map((address) => (
                           <div key={address?.id}>
                             <p>{address?.district}</p>
-                           </div>
+                          </div>
                         ))}
                       </span>
                     </div>

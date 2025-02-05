@@ -10,6 +10,7 @@ import SpecificsProduct from "./components/product/specificsProduct";
 import UserDashbord from "./page/UserDashbord";
 import ProductUpload from "./page/Admin/ProductUpload";
 import ManageUsers from "./page/Admin/ManageUsers";
+import ManageProduct from "./page/Admin/ManageProduct";
 
 export default function App() {
   return (
@@ -57,6 +58,15 @@ export default function App() {
             <>
               <Header />
               <ManageUsers />
+            </>
+          }
+        />
+        <Route
+          path="/admin/product_manage/:id"
+          element={
+            <>
+              <Header />
+              <ManageProduct />
             </>
           }
         />

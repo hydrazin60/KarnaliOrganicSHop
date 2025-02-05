@@ -56,6 +56,8 @@ export default function AdminAccountDashboard() {
       navigate(`/admin/product/upload/${user._id}`);
     } else if (title == "Manage Users") {
       navigate(`/admin/manage_users/${user._id}`);
+    } else if (title == "manage Products") {
+      navigate(`/admin/product_manage/${user._id}`);
     }
   };
 
