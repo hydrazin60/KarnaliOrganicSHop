@@ -347,4 +347,66 @@ export const DeleteProduct = async (req, res) => {
   }
 };
 
- 
+export const GetAllProduct = async (req, res) => {
+  try {
+    const products = await Product.find({})
+      .populate("authorId", "fullName email address mobileNumber")
+      .sort({ createdAt: -1 })
+      .exec();
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "Products fetched successfully",
+      data: products,
+    });
+  } catch (err) {
+    console.log(`Something went wrong on get user details: ${err.message}`);
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: `Something went wrong on get user details: ${err.message}`,
+    });
+  }
+};
+
+export const GetSingleProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: `Something went wrong! Product not found`,
+      });
+    }
+    const productDetails = await Product.findById(productId);
+
+    if (!productDetails) {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "Product not found",
+      });
+    }
+
+    const populateProductDetails = await Product.findById(productId)
+      .populate("authorId", "fullName email address mobileNumber")
+      .exec();
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "Product details fetched successfully",
+      data: populateProductDetails,
+    });
+  } catch (err) {
+    console.log(`Something went wrong on get user details: ${err.message}`);
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: `Something went wrong on get user details: ${err.message}`,
+    });
+  }
+};

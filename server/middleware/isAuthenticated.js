@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 export const isAuthenticated = (req, res, next) => {
   try {
-    const token = req.cookies?.token ;
+    const token =
+      req.cookies?.token || req.headers.authorization?.split(" ")[1];
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -31,41 +32,37 @@ export const isAuthenticated = (req, res, next) => {
 };
 
 // import jwt from "jsonwebtoken";
-
 // export const isAuthenticated = (req, res, next) => {
 //   try {
-//     // Retrieve token from cookies or Authorization header
-//     const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
+//     const token =
+//       req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
 //     if (!token) {
 //       return res.status(401).json({
 //         success: false,
 //         error: true,
-//         message: "Unauthorized access! Please login first.",
+//         message: "Unauthorized access! Please log in first",
 //       });
 //     }
 
-//     // Verify the token
+//     // Verify Token
 //     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
 //     if (!decodedToken) {
 //       return res.status(401).json({
 //         success: false,
 //         error: true,
-//         message: "Invalid or expired token. Please login again.",
+//         message: "Unauthorized access! Please log in again",
 //       });
 //     }
 
-//     // Attach userId to the request object for downstream handlers
 //     req.userId = decodedToken.id;
 //     next();
 //   } catch (error) {
-//     console.error(`Error in isAuthenticated middleware: ${error.message}`);
+//     console.error(`Authentication error: ${error.message}`);
 //     res.status(500).json({
 //       success: false,
 //       error: true,
-//       message: "Something went wrong while authenticating the user.",
+//       message: "Something went wrong with authentication!",
 //     });
 //   }
 // };
- 
