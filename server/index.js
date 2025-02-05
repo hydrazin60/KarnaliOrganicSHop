@@ -6,6 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import ProductRouter from "./routes/admin/Product.routes.js";
 import userRouter from "./routes/user/user.routes.js";
+import userManageRouter from "./routes/admin/userManage.routes.js";
  
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(
 app.use("/api/v1/amazoneClone/user/auth", authRouter);
 app.use("/api/v1/amazoneClone/user", userRouter);
 app.use("/api/v1/amazoneClone/product", ProductRouter);
+app.use("/api/v1/amazoneCLone/user_management" , userManageRouter )
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
