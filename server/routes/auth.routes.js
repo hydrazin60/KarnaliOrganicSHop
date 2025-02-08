@@ -16,4 +16,5 @@ authRouter.post(
   UploadUserDetails
 );
 
+
 export default authRouter;
