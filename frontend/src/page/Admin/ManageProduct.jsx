@@ -1,229 +1,187 @@
 import AdminSideBar from "@/components/Admin/AdminSideBar";
-import { Button } from "@/components/ui/button";
-import React from "react";
-import { SlBasket } from "react-icons/sl";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { toast } from "sonner";
+import axios from "axios";
 export default function ManageProduct() {
   const user = useSelector((state) => state?.user?.user);
-  const categories = [
-    "mobile",
-    "laptop",
-    "tv",
-    "camera",
-    "watch",
-    "headphone",
-    "clouth",
-    "shoes",
-    "bag",
-    "accessories",
-    "jewellery",
-    "furniture",
-    "books",
-  ];
-  const brands = [
-    "Apple",
-    "Asus",
-    "Acer",
-    "Dell",
-    "HP",
-    "Lenovo",
-    "jara",
-    "Sony",
-    "JBL",
-    "Other",
-    "The North Face",
-    "Adidas",
-    "Puma",
-    "Nike",
-    "Under Armour",
-    "Reebok",
-    "New Balance",
-    "Vans",
-  ];
-  const ageCategories = ["kid", "woman", "man", "adult", "old"];
-  const productTypes = ["electronic", "clothing", "Beauty", "Book"];
-  const [updatedProductData, setUpdatedProductData] = React.useState({
-    productName: "",
-    prdouctPrice: "",
-    productDescription: "",
-    productQuantity: "",
-    productImage: [],
-    productType: "",
-    productCategory: "",
-    productCategoryByAge: "",
-    productBrand: "",
-    productReviewVideo: "",
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const fetchAllProducts = async () => {
+    if (!user?._id) {
+      console.log("User ID not found");
+      toast.error("Unauthorized access! Please log in again.");
+      return;
+    }
 
-  });
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        "http://localhost:4000/api/v1/amazoneClone/product/get/all_product",
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+          withCredentials: true,
+        }
+      );
+      setProducts(res.data.data);
+      console.log(res.data.data);
+      toast.success(res.data.message || "Products fetched successfully");
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchAllProducts();
+  }, []);
 
+  const [imageLink, setImageLink] = useState("");
+
+  const hoverImageLinkFunction = (event, imageSrc) => {
+    event.preventDefault();
+    setIsHovered(true);
+    setImageLink(imageSrc);
+  };
+
+  const removeHoverImage = () => {
+    setIsHovered(false);
+  };
   return (
-    <div className="flex h-[100vh]">
+    <div className="flex  w-full bg-zinc-800 text-white">
       <AdminSideBar />
-      <div className="h-[100vh] w-full flex justify-center p-10">
-        <form className="h-fit w-[80%] p-10 flex flex-col justify-between gap-8 border shadow-lg border-zinc-500 rounded-lg">
-          <p className="text-2xl font-semibold text-zinc-900">Details</p>
-          <div className="flex gap-9">
-            <input
-              className="w-1/2 p-2 rounded-xl placeholder:text-black border-2 border-zinc-400"
-              type="text"
-              placeholder="Product Name"
-              name="productName"
-              required
-            />
-            <input
-              className="w-40 p-2 placeholder:text-zinc-500 rounded-xl border-2 border-zinc-400"
-              type="number"
-              placeholder="Product Price"
-              name="prdouctPrice"
-              required
-            />
-          </div>
+      <div className="h-[100vh] w-full flex  flex-col py-10  gap-1 ">
+        <div className="flex flex-col gap-12 ml-10 ">
           <div>
-            <textarea
-              className="w-1/2 rounded-xl placeholder:text-zinc-400 placeholder:font-[400] border-2 border-zinc-400 p-2"
-              name="productDescription"
-              id="productDescription"
-              placeholder="Product Description"
-              rows="10"
-              required
-            ></textarea>
+            <h1 className="text-3xl font-semibold">Manage Product</h1>
           </div>
-          <div>
-            <input
-              className="w-40 p-2 rounded-xl placeholder:text-zinc-500 border-2 border-zinc-400"
-              type="number"
-              placeholder="Product Quantity"
-              name="productQuantity"
-            />
+          <div className="flex gap-10 text-zinc-400 ">
+            <p className="font-semibold border-b-4 border-zinc-800 pb-1 hover:border-zinc-600 cursor-pointer ">
+              Product
+            </p>
+            <p className=" font-semibold border-b-4 border-zinc-800 pb-1 hover:border-zinc-600 cursor-pointer">
+              Order
+            </p>
+            <p className=" font-semibold border-b-4 border-zinc-800 pb-1 hover:border-zinc-600 corpus-pointer">
+              User
+            </p>
           </div>
-          <span>
-            <p className="text-zinc-900 font-semibold text-[18px]">
-              Product Images
-            </p>
-            <p className="text-[16px] text-zinc-500">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta
-              optio, fuga debitis, deserunt, reiciendis
-            </p>
-          </span>
-          <div className="border border-zinc-400 flex gap-2 p-2 justify-between">
-            <div className="h-44 w-44 border-2 p-2 border-zinc-400 rounded-xl flex items-center justify-center cursor-pointer">
+        </div>
+        <div className="w-full border-t border-zinc-600 border-b">
+          <input
+            placeholder="Search product ......."
+            className=" bg-zinc-800 w-full border-none placeholder:text-gray-400 outline-none px-10 p-2  "
+          />
+        </div>
+        <div>
+          <table className="table-auto w-full text-left text-sm text-gray-500 overflow-x-scroll ">
+            <thead className="border-b border-zinc-600">
+              <th className="text-[0.9rem]  text-zinc-400 font-medium px-8 py-2">
+                Product Name
+              </th>
+              <th className="text-[0.9rem]  v text-zinc-400 font-medium px-4 py-2">
+                Product Description
+              </th>
+              <th className="text-[0.9rem]  v text-zinc-400 font-medium px-4 py-2">
+                Product Image
+              </th>
+              <th className=" text-[0.9rem]  text-zinc-400 font-medium px-4 py-2">
+                Price
+              </th>
+              <th className=" text-[0.9rem]   text-zinc-400 font-medium px-4 py-2 flex items-center gap-1">
+                <p> Quantity </p>
+              </th>
+              <th className="text-[0.9rem]  text-zinc-400 font-medium px-4 py-2">
+                Brands
+              </th>
+              <th className=" text-[0.9rem]   text-zinc-400 font-medium px-4 py-2">
+                Category
+              </th>
+              <th className=" text-[0.9rem]   text-zinc-400 font-medium px-4 py-2">
+                Dsicound
+              </th>
+            </thead>
+            {products.map((product, index) => (
+              <tbody className="border-b border-zinc-600 ">
+                <tr className="hover:bg-black hover:border-b cursor-pointer  hover:border-red-600">
+                  <th className="text-xs text-zinc-400 px-10  py-2">
+                    <div className=" flex flex-row gap-2">
+                      <span>
+                        <p> {product?.productName} </p>
+                      </span>
+                    </div>
+                  </th>
+                  <th className="text-xs text-zinc-400 px-3   py-1">
+                    <div className=" flex flex-row gap-2">
+                      <span>{product?.productDescription}</span>
+                    </div>
+                  </th>
+                  <th className="text-xs relative  text-zinc-400 px-3   py-1">
+                    <div className="relative flex flex-row gap-2">
+                      {product?.productImage?.length > 0 && (
+                        <img
+                          src={product.productImage[0]}
+                          alt="Product Image"
+                          className="w-10 h-10 rounded-md cursor-pointer"
+                          onMouseEnter={(e) =>
+                            hoverImageLinkFunction(e, product.productImage[0])
+                          }
+                          onMouseLeave={removeHoverImage}
+                        />
+                      )}
+                    </div>
+                  </th>
+                  <th className="text-xs text-zinc-400 px-2   py-2">
+                    <div className=" flex flex-row gap-2">
+                      <span>
+                        <p> {product?.prdouctPrice}</p>
+                      </span>
+                    </div>
+                  </th>
+                  <th className="text-xs text-zinc-400  px-8  py-2">
+                    <div className=" flex flex-row gap-2">
+                      <span>
+                        <p> {product?.productQuantity} </p>
+                      </span>
+                    </div>
+                  </th>
+                  <th className="text-xs text-zinc-400 px-5  py-2">
+                    <div className=" flex flex-row gap-2">
+                      <span>
+                        <p> {product?.productBrand} </p>
+                      </span>
+                    </div>
+                  </th>
+                  <th className="text-xs text-zinc-400 px-5    py-2">
+                    <div className=" flex flex-row gap-2">
+                      <span> {product?.productCategory} </span>
+                    </div>
+                  </th>
+                  <th className="text-xs text-zinc-400 px-5   py-2">
+                    <div className=" flex flex-row gap-2">
+                      <span className="flex flex-row gap-2 items-center">
+                        <p> {product?.discount}</p>
+                      </span>
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+            ))}
+          </table>
+          {isHovered && (
+            <div className="absolute top-[7%] left-[50%] h-52 w-52 bg-red-200 rounded-md shadow-lg">
               <img
-                src="https://cdn3.iconfinder.com/data/icons/photo-tools/65/upload-512.png"
-                alt=""
-              />
-              <input
-                type="file"
-                required
-                name="productImage"
-                id="productImage"
-                className="hidden"
-                multiple
+                src={imageLink}
+                alt="Product Image"
+                className="h-full w-full object-cover rounded-md"
               />
             </div>
-            <div className="flex gap-2 h-40 border-2 p-2 border-zinc-400 rounded-xl"></div>
-          </div>
-          <span>
-            <p className="text-zinc-900 font-semibold text-[18px]">
-              Product Review Video
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-              voluptate labore impedit! Sapiente ex officiis blanditiis
-            </p>
-          </span>
-          <div className="border p-2 justify-between border-zinc-400 flex gap-1 ">
-            <div className="h-44 w-44 relative border-2 p-2 border-zinc-400 rounded-xl flex items-center justify-center cursor-pointer">
-              <img
-                src="https://cdn0.iconfinder.com/data/icons/video-element/24/File-video_file-upload-document-formats-512.png"
-                alt="Upload Video"
-                className="h-28 object-contain"
-              />
-              <input
-                type="file"
-                name="productReviewVideo"
-                id="productReviewVideo"
-                className="hidden"
-              />
-              <p className="text-sm absolute bottom-0 text-zinc-900">
-                Upload Video
-              </p>
-            </div>
-            <div className="h-44 w-72 relative rounded-xl group  border-2 p-2 border-zinc-400"></div>
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="text-zinc-500 text-[16px]">
-              Product Category Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Nam obcaecati unde eum quod
-            </p>
-            <input
-              className="w-52 p-2 rounded-xl placeholder:text-black border-2 border-zinc-400"
-              type="text"
-              placeholder="Product Category"
-              name="productCategory"
-              list="productCategory"
-              required
-            />
-            <datalist id="productCategory">
-              {categories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </datalist>
-          </div>
-          <div className="flex gap-2">
-            <div>
-              <input
-                className="w-80 p-2 rounded-xl placeholder:text-black border-2 border-zinc-400"
-                type="text"
-                placeholder="Product Category By Age"
-                name="productCategoryByAge"
-                list="productCategoryByAge"
-                required
-              />
-              <datalist id="productCategoryByAge">
-                {ageCategories.map((age, index) => (
-                  <option key={index} value={age}>
-                    {age}
-                  </option>
-                ))}
-              </datalist>
-            </div>
-            <div>
-              <input
-                className="w-52 p-2 rounded-xl placeholder:text-black border-2 border-zinc-400"
-                type="text"
-                placeholder="Product Brand"
-                name="productBrand"
-                list="productBrand"
-              />
-              <datalist id="productBrand">
-                {brands.map((brand, index) => (
-                  <option key={index} value={brand} />
-                ))}
-              </datalist>
-            </div>
-          </div>
-          <div>
-            <input
-              className="w-52 p-2 rounded-xl placeholder:text-black border-2 border-zinc-400"
-              type="text"
-              placeholder="Product Type"
-              name="productType"
-              list="productType"
-              required
-            />
-            <datalist id="productType">
-              {productTypes.map((type, index) => (
-                <option key={index} value={type} />
-              ))}
-            </datalist>
-          </div>
-          <Button type="submit" className="w-52 mt-4">
-            submit
-          </Button>
-        </form>
+          )}
+        </div>
       </div>
     </div>
   );

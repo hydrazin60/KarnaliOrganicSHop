@@ -1,6 +1,6 @@
 import React from "react";
-import BigImage from "../card/BigImage";
-import ProductDetailsCard from "../card/ProductDetailsCard";
+import BigImage from "../../components/card/BigImage";
+import ProductDetailsCard from "../../components/card/ProductDetailsCard";
 
 export default function SpecificsProduct() {
   return (

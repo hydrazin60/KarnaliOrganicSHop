@@ -6,11 +6,12 @@ import Footer from "./components/Footer";
 import Login from "./page/Login";
 import { Divide } from "lucide-react";
 import Register from "./page/Register";
-import SpecificsProduct from "./components/product/specificsProduct";
+import SpecificsProduct from "./page/product/specificsProduct";
 import UserDashbord from "./page/UserDashbord";
 import ProductUpload from "./page/Admin/ProductUpload";
 import ManageUsers from "./page/Admin/ManageUsers";
 import ManageProduct from "./page/Admin/ManageProduct";
+import SingleProductPage from "./page/product/SingleProductPage";
 
 export default function App() {
   return (
@@ -67,6 +68,15 @@ export default function App() {
             <>
               <Header />
               <ManageProduct />
+            </>
+          }
+        />
+        <Route
+          path="/user/see_single_product/:id"
+          element={
+            <>
+              <Header />
+              <SingleProductPage />
             </>
           }
         />

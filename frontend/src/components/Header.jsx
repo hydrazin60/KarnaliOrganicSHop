@@ -10,8 +10,10 @@ import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+
 export default function Header() {
   const user = useSelector((state) => state?.user?.user);
+  console.log(user);
   const navigate = useNavigate();
   return (
     <>

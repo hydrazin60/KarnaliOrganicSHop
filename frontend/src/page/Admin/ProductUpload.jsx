@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SlBasket } from "react-icons/sl";
 import { RxCross2 } from "react-icons/rx";
 import { toast } from "sonner";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import AdminSideBar from "@/components/Admin/AdminSideBar";
+import { setUserDetails } from "@/redux/slice/userSlice";
 export default function ProductUpload() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
   const categories = [
     "mobile",
@@ -228,8 +230,6 @@ export default function ProductUpload() {
       setIsLoading(false);
       if (res.data.success) {
         toast.success(res.data.message);
-
-        // Reset form after successful upload
         setProductDetails({
           productName: "",
           prdouctPrice: "",
@@ -261,7 +261,7 @@ export default function ProductUpload() {
     }
   };
   return (
-    <div className="flex h-[100vh]">
+    <div className="flex h-[100vh] ">
       <AdminSideBar />
       <div className="h-[100vh] w-full flex justify-center p-10">
         <form

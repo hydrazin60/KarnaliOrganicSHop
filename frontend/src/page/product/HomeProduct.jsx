@@ -1,8 +1,8 @@
 import React from "react";
-import BigImage from "../card/BigImage";
-import BestSellersBooks from "../card/BestSellersBooks";
-import BestBooks from "../card/BestBooks";
-import FourImageCOmbileProduct from "../card/fourImageCOmbileProduct";
+import BigImage from "../../components/card/BigImage";
+import BestSellersBooks from "../../components/card/BestSellersBooks";
+import BestBooks from "../../components/card/BestBooks";
+import FourImageCOmbileProduct from "../../components/card/fourImageCOmbileProduct";
 export default function HomeProduct() {
   const smallBooksImage = [
     {

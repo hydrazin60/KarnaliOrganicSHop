@@ -1,4 +1,7 @@
 import React from "react";
+import { SlBasket } from "react-icons/sl";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 
 export default function ProductDetailsCard() {
   const itemImagePhoto = [
@@ -76,9 +79,25 @@ export default function ProductDetailsCard() {
                 Options: <span className="text-sm">2 sizes</span>{" "}
               </p>
 
-              <button className=" border border-zinc-500 px-2 py-1 rounded-full mt-4 hover:bg-zinc-100">
-                See Options
-              </button>
+              <div className="flex w-full justify-between">
+                <button className=" border border-zinc-500 px-2 py-1 rounded-full mt-4 hover:bg-zinc-100">
+                  See Options
+                </button>
+                <div className=" relative border-black flex items-center justify-center gap-2 text-center  py-2 px-1 hover:border-gray-200 cursor-pointer ">
+                  <span className="h-6 w-6 flex items-center justify-center border p-1 rounded hover:bg-zinc-200 hover:border-red-600">
+                    <FaMinus />
+                  </span>
+                  <span>
+                    <SlBasket className="cursor-pointer" size={30} />
+                  </span>
+                  <div className="absolute top-0 right-9 bg-red-600 rounded-full w-4 h-4 flex items-center justify-center">
+                    <p className="font-semibold text-xs text-white">2</p>
+                  </div>
+                  <span className="h-6 w-6 flex items-center justify-center border p-1 rounded hover:bg-zinc-200 hover:border-red-600">
+                    <FaPlus />
+                  </span>
+                </div>
+              </div>
 
               <p className="text-gray-800 text-sm mt-3">
                 Available from $48.13

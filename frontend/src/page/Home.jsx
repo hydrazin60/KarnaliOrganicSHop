@@ -67,7 +67,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
-import HomeProduct from "@/components/product/HomeProduct";
+import HomeProduct from "@/page/product/HomeProduct";
 
 export default function Home() {
   const HeaderImages = [
