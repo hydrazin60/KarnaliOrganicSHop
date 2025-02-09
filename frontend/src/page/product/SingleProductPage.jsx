@@ -29,11 +29,12 @@ export default function SingleProductPage() {
         "https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg", // Small Monitor
     },
   ];
+  const [activeImage, setActiveImage] = React.useState(" ");
   return (
     <div className="flex w-full h-full flex-col px-20 py-10   ">
-      <div className="flex w-full h-full gap-10 border-b-2 border-zinc-400 pb-10">
+      <div className="flex w-full h-full gap-10 border-b-2 border-zinc-400 pb-10 flex-wrap">
         <div className="flex h-full w-1/3  flex-col gap-10">
-          <div className="flex h-full w-full gap-10">
+          <div className="flex h-full w-full gap-3">
             <div className="flex flex-col gap-2">
               <img
                 src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
@@ -60,12 +61,17 @@ export default function SingleProductPage() {
                 alt=""
                 className="h-16  w-20  rounded-md overflow-hidden cursor-pointer object-cover  "
               />
+              <img
+                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+                alt=""
+                className="h-16  w-20  rounded-md overflow-hidden cursor-pointer object-cover  "
+              />
             </div>
             <div>
               <img
                 src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
                 alt=""
-                className="h-[400px] rounded-md overflow-hidden cursor-pointer object-cover  "
+                className="h-[425px] rounded-md overflow-hidden cursor-pointer object-cover  "
               />
             </div>
           </div>
@@ -89,8 +95,11 @@ export default function SingleProductPage() {
         </div>
         <div className="flex h-full w-1/2 relative flex-col gap-10 bg-yellow-300 ">
           <div className="h-[700px] absolute top-1 w-[800px] bg-slate-700">
-            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="preview"
-            className="h-full w-full object-cover overflow-hidden" />
+            <img
+              src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+              alt="preview"
+              className="h-full w-full object-cover overflow-hidden"
+            />
           </div>
           <div className="border-b-[1px] border-zinc-400 py-2 flex flex-col gap-3">
             <p className="text-3xl font-semibold">

@@ -12,6 +12,7 @@ export default function ManageProduct() {
     if (!user?._id) {
       console.log("User ID not found");
       toast.error("Unauthorized access! Please log in again.");
+
       return;
     }
 
@@ -37,6 +38,7 @@ export default function ManageProduct() {
     }
   };
   useEffect(() => {
+    console.log(products);
     fetchAllProducts();
   }, []);
 

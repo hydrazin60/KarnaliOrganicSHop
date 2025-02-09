@@ -89,6 +89,10 @@ export default function Home() {
     },
   ];
 
+  const[loding , setLoding] = React.useState(true)
+  const[data , setData] = React.useState([])
+  
+
   return (
     <main className="bg-gray-100 relative flex justify-center ">
       <div className="w-full  ">

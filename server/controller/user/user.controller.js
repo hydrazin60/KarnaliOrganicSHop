@@ -103,9 +103,18 @@ export const ownProfileView = async (req, res) => {
   }
 };
 
-export const  orderProductView = async (req, res) => {
+export const processOrder = async (req, res) => {
   try {
     const userId = req.userId;
+    const { orderType } = req.body;
+    console.log(orderType);
+    if (!orderType) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Please select a payment method",
+      });
+    }
     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({
         success: false,
@@ -161,6 +170,8 @@ export const  orderProductView = async (req, res) => {
       productId: product._id,
       userId: user._id,
       orderStatus: "pending",
+      orderState: "blue",
+      orderType: orderType,
     });
 
     if (existingOrder) {
@@ -186,7 +197,7 @@ export const  orderProductView = async (req, res) => {
     const populateOrder = await ProductOrder.findById(existingOrder._id)
       .populate(
         "productId",
-        "productName productPrice productImage productDescription productCategory productBrand"
+        "productName productPrice productImage productDescription productCategory productBrand prdouctPrice discount"
       )
       .populate("userId", "fullName email mobileNumber address")
       .exec();
@@ -206,6 +217,135 @@ export const  orderProductView = async (req, res) => {
       success: false,
       error: true,
       message: `Server error: ${error.message}`,
+    });
+  }
+};
+
+export const viewOwnOrder = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Something went wrong! Unauthorized access",
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "User not found",
+      });
+    }
+    if (user.userType !== "user") {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Only users can order products",
+      });
+    }
+    const totalOrder = await ProductOrder.find({
+      userId: user._id,
+    })
+      .populate(
+        "productId",
+        "productName productPrice productImage productDescription productCategory productBrand  prdouctPrice discount "
+      )
+      .populate("userId", "fullName email mobileNumber address")
+      .exec();
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "Order details fetched successfully",
+      data: totalOrder,
+    });
+  } catch (error) {
+    console.log(`Something went wrong on viewOwnOrder ! ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: `Something went wrong on viewOwnOrder ! ${error.message}`,
+    });
+  }
+};
+
+export const deleteOrder = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Something went wrong! Unauthorized access",
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "User not found",
+      });
+    }
+    if (user.userType !== "user") {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Only users can order products",
+      });
+    }
+    const orderId = req.params.orderId;
+    if (!orderId || !mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Invalid product ID",
+      });
+    }
+
+    const order = await ProductOrder.findById(orderId);
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        error: true,
+        message: "Order not found",
+      });
+    }
+    if (order.orderStatus === "delivered") {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Order already delivered",
+      });
+    }
+    if (order.userId.toString() !== user._id.toString()) {
+      return res.status(400).json({
+        success: false,
+        error: true,
+        message: "Unauthorized access",
+      });
+    }
+
+    await ProductOrder.findByIdAndDelete(orderId);
+    user.totalOrder.pull(orderId);
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "Order deleted successfully",
+    });
+  } catch (error) {
+    console.log(`Something went wrong on deleteOrder ! ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      error: true,
+      message: `Something went wrong on deleteOrder ! ${error.message}`,
     });
   }
 };
