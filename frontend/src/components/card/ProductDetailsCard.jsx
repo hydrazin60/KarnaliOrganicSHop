@@ -54,8 +54,8 @@ export default function ProductDetailsCard() {
   ];
 
   return (
-    <div className="p-6 ">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 ">
+    <div className="p-6">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 ">
         {itemImagePhoto.map((item) => (
           <div
             key={item.id}
@@ -65,7 +65,7 @@ export default function ProductDetailsCard() {
               <img
                 src={item.imageLink}
                 alt="Product"
-                className=" h-[300px] object-contain "
+                className="h-[300px]  object-contain"
               />
             </div>
             <div className="text-start mt-2 px-2">
@@ -76,9 +76,8 @@ export default function ProductDetailsCard() {
               </p>
               <p className="text-yellow-500 text-lg mt-2">★★★★★</p>
               <p className="text-gray-600 mt-1 font-semibold">
-                Options: <span className="text-sm">2 sizes</span>{" "}
+                Options: <span className="text-sm">2 sizes</span>
               </p>
-
               <div className="flex w-full justify-between">
                 <button className=" border border-zinc-500 px-2 py-1 rounded-full mt-4 hover:bg-zinc-100">
                   See Options
@@ -98,10 +97,9 @@ export default function ProductDetailsCard() {
                   </span>
                 </div>
               </div>
-
               <p className="text-gray-800 text-sm mt-3">
                 Available from $48.13
-                <span className="text-blue-600"> (19 used & new offers)</span>
+                <span className="text-blue-600"> (19 used & new offers) </span>
               </p>
             </div>
           </div>

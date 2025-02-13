@@ -49,7 +49,7 @@ export default function AdminAccountDashboard() {
       image:
         "https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg",
     },
-  ];
+  ]; 
 
   const onclick = (title) => {
     if (title == "upload Products") {

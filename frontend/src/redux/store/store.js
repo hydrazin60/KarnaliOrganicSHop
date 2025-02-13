@@ -11,25 +11,25 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
-// Persist configuration
+import { postSlice } from "../slice/postSlice.js";
+ 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
 };
-
-// Combine reducers
+ 
 const rootReducer = combineReducers({
   user: userReducer,
+  post : postSlice,
 });
-
-// Create a persisted reducer
+ 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// Configure the store
+ 
 export const store = configureStore({
   reducer: persistedReducer,
+
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

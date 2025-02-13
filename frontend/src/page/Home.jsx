@@ -70,6 +70,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import HomeProduct from "@/page/product/HomeProduct";
 
 export default function Home() {
+ 
   const HeaderImages = [
     {
       id: 1,
@@ -89,9 +90,8 @@ export default function Home() {
     },
   ];
 
-  const[loding , setLoding] = React.useState(true)
-  const[data , setData] = React.useState([])
-  
+  const [loding, setLoding] = React.useState(true);
+  const [data, setData] = React.useState([]);
 
   return (
     <main className="bg-gray-100 relative flex justify-center ">

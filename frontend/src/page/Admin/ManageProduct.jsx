@@ -15,7 +15,6 @@ export default function ManageProduct() {
 
       return;
     }
-
     setLoading(true);
     try {
       const res = await axios.get(
