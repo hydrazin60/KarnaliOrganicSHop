@@ -21,7 +21,7 @@ const persistConfig = {
  
 const rootReducer = combineReducers({
   user: userReducer,
-  post : postSlice,
+  post : postSlice, //////////////////////////
 });
  
 const persistedReducer = persistReducer(persistConfig, rootReducer);

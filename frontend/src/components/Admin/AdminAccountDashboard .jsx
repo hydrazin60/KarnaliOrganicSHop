@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { use } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,14 @@ import { useNavigate } from "react-router-dom";
 export default function AdminAccountDashboard() {
   const user = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(true);
   const adminOptions = [
+    {
+      title: "invoiuce",
+      description: "this is the Ad- furnteg dndffhf",
+      image:
+        "https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg",
+    },
     {
       title: "upload Products",
       description: "Approve or reject company registrations",
@@ -49,7 +56,7 @@ export default function AdminAccountDashboard() {
       image:
         "https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg",
     },
-  ]; 
+  ];
 
   const onclick = (title) => {
     if (title == "upload Products") {
@@ -88,37 +95,44 @@ export default function AdminAccountDashboard() {
         ))}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 border-t border-zinc-300 py-10 ">
-        <div className="border p-4 border-zinc-400 rounded-xl pb-10">
-          <p className="font-semibold text-xl ">Ordering and shopping</p>
-          <p className="text-lg font-semibold"> preferences</p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Address
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Orders
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Messages
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Subscriptions
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Recommendations
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Recommendations
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Recommendations
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Recommendations
-          </p>
-          <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
-            Your Recommendations
-          </p>
-        </div>
+        {isAdmin ? (
+          <div className="border p-4 border-zinc-400 rounded-xl pb-10">
+            <p className="font-semibold text-xl ">
+              Ordering and shopping Adiminm
+            </p>
+            <p className="text-lg font-semibold"> preferences</p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Address
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Orders
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Messages
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Subscriptions
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Recommendations
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Recommendations
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Recommendations
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Recommendations
+            </p>
+            <p className="text-[#2162A1] text-lg cursor-pointer hover:text-black  hover:underline ">
+              Your Recommendations
+            </p>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="border p-4 border-zinc-400 rounded-xl pb-10">
           <p className="font-semibold text-xl ">Ordering and shopping</p>
           <p className="text-lg font-semibold"> preferences</p>

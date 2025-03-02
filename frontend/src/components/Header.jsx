@@ -10,10 +10,9 @@ import { RxAvatar } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 export default function Header() {
   const user = useSelector((state) => state?.user?.user);
-  
+
   console.log(user);
   const navigate = useNavigate();
   return (
@@ -110,7 +109,10 @@ export default function Header() {
               </div>
             )}
           </div>
-          <div className=" border-2 rounded-[3px] border-black flex flex-col cursor-pointer hover:border-gray-200 p-2 ">
+          <div
+            className=" border-2 rounded-[3px] border-black flex flex-col cursor-pointer hover:border-gray-200 p-2 "
+            onClick={() => navigate("/sell/dashbord")}
+          >
             <p className="font-semibold text-xs">Returns</p>
             <p className="font-semibold text-sm">& Orders</p>
           </div>

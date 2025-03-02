@@ -12,6 +12,8 @@ import ProductUpload from "./page/Admin/ProductUpload";
 import ManageUsers from "./page/Admin/ManageUsers";
 import ManageProduct from "./page/Admin/ManageProduct";
 import SingleProductPage from "./page/product/SingleProductPage";
+import BarChartComponent from "./components/Admin/Dashbord";
+import Analisics from "./components/Admin/Analisics";
 
 export default function App() {
   return (
@@ -68,6 +70,15 @@ export default function App() {
             <>
               <Header />
               <ManageProduct />
+            </>
+          }
+        />
+        <Route
+          path="/sell/dashbord"
+          element={
+            <>
+              <Header />
+              <Analisics />
             </>
           }
         />
