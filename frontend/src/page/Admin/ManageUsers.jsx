@@ -14,7 +14,7 @@ export default function ManageUsers() {
   const [loading, setLoading] = useState(false);
   const fetchUsers = async () => {
     if (!user?._id) {
-      console.log("User ID not found");
+     
       toast.error("Unauthorized access! Please log in again.");
       return;
     }

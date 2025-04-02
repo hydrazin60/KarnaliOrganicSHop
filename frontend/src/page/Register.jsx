@@ -29,8 +29,6 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-
     try {
       setLoading(true);
       setIsError(false);
@@ -61,8 +59,7 @@ export default function Register() {
         }
       );
 
-      console.log("Response Data:", res.data);
-
+     
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message || "Registration successful!");

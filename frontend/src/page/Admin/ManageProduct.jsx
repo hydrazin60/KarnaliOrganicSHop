@@ -10,7 +10,6 @@ export default function ManageProduct() {
   const [isHovered, setIsHovered] = useState(false);
   const fetchAllProducts = async () => {
     if (!user?._id) {
-      console.log("User ID not found");
       toast.error("Unauthorized access! Please log in again.");
 
       return;
@@ -27,7 +26,7 @@ export default function ManageProduct() {
         }
       );
       setProducts(res.data.data);
-      console.log(res.data.data);
+      
       toast.success(res.data.message || "Products fetched successfully");
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -37,7 +36,7 @@ export default function ManageProduct() {
     }
   };
   useEffect(() => {
-    console.log(products);
+    
     fetchAllProducts();
   }, []);
 

@@ -14,7 +14,7 @@ import ManageProduct from "./page/Admin/ManageProduct";
 import SingleProductPage from "./page/product/SingleProductPage";
 import BarChartComponent from "./components/Admin/Dashbord";
 import Analisics from "./components/Admin/Analisics";
-
+ 
 export default function App() {
   return (
     <BrowserRouter>
@@ -23,6 +23,7 @@ export default function App() {
           path="/"
           element={
             <>
+           
               <Header />
               <Home />
             </>
