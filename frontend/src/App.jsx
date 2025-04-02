@@ -1,100 +1,30 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./page/Home";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Login from "./page/Login";
-import { Divide } from "lucide-react";
-import Register from "./page/Register";
-import SpecificsProduct from "./page/product/specificsProduct";
-import UserDashbord from "./page/UserDashbord";
-import ProductUpload from "./page/Admin/ProductUpload";
-import ManageUsers from "./page/Admin/ManageUsers";
-import ManageProduct from "./page/Admin/ManageProduct";
-import SingleProductPage from "./page/product/SingleProductPage";
-import Analisics from "./components/Admin/Analisics";
-import AttendanceDashboard from "./components/Admin/AdminAccountDashboard";
+import Login from "./components/Login";
+import AdminAccountDashboard from "./components/Admin/AdminAccountDashboard";
+import Analytics from "./components/Admin/Analytics";
+import ManageProducts from "./components/Admin/ManageProducts";
+import UploadProducts from "./components/Admin/UploadProducts";
 
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
+    <Router>
+      <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <AttendanceDashboard />
-              <Header />
-              <Home />
-            </>
-          }
-        />
-        <Route
-          path="/specificsProduct/:id"
-          element={
-            <>
-              <Header />
-              <SpecificsProduct />
-            </>
-          }
-        />
-        <Route
-          path="/user/dashbord/:id"
-          element={
-            <>
-              <Header />
-              <UserDashbord />
-            </>
-          }
-        />
-        <Route
-          path="/admin/product/upload/:id"
-          element={
-            <>
-              <Header />
-              <ProductUpload />
-            </>
-          }
-        />
-        <Route
-          path="/admin/manage_users/:id"
-          element={
-            <>
-              <Header />
-              <ManageUsers />
-            </>
-          }
-        />
-        <Route
-          path="/admin/product_manage/:id"
-          element={
-            <>
-              <Header />
-              <ManageProduct />
-            </>
-          }
-        />
-        <Route
-          path="/sell/dashbord"
-          element={
-            <>
-              <Header />
-              <Analisics />
-            </>
-          }
-        />
-        <Route
-          path="/user/see_single_product/:id"
-          element={
-            <>
-              <Header />
-              <SingleProductPage />
-            </>
-          }
-        />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/admin/dashboard" element={<AdminAccountDashboard />} />
+        <Route path="/admin/analytics" element={<Analytics />} />
+        <Route path="/admin/manage-products" element={<ManageProducts />} />
+        <Route path="/admin/upload-products" element={<UploadProducts />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
+
+export default App;
