@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Login from "./page/Login";
 import { Divide } from "lucide-react";
 import Register from "./page/Register";
-import SpecificsProduct from "./page/product/specificsProduct";
+// import SpecificsProduct from "./page/product/specificsProduct";
 import UserDashbord from "./page/UserDashbord";
 import ProductUpload from "./page/Admin/ProductUpload";
 import ManageUsers from "./page/Admin/ManageUsers";
@@ -34,7 +34,7 @@ export default function App() {
           element={
             <>
               <Header />
-              <SpecificsProduct />
+              {/* <SpecificsProduct /> */}
             </>
           }
         />
